@@ -68,5 +68,5 @@
     - dacă la finalul săptămânii primesc mai puțin de 2 puncte pt. că n-am făcut o sarcină, dar termin sarcina mai târziu, pot primii punctele pe care le-am ratat dar nu în totalitate (să zicem că am primit 1 că n am făcut nimic săpt. 6, dar fac tot ce aveam de făcut în săpt. 6 în săpt. 9 sau 10 sau 11 whatev. atunci nuprimesc 2 primesc nush 1.8)
 
 # Observație Document
-<h3> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h3>
+<h4> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h4>
 
