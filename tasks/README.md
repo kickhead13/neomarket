@@ -31,6 +31,9 @@
 
 ## Resurse
  - FrontEnd
+    - Instalare React:
+        - MacOS: https://dev.to/code_jedi/how-to-install-reactjs-on-macos-4hio
+        - Arch: https://tutorialforlinux.com/2018/08/16/how-to-install-react-js-on-arch-linux-easy-guide/
     - React tutorial începători: https://www.w3schools.com/REACT/DEFAULT.ASP
     - Router pentru React: https://www.w3schools.com/react/react_router.aspa
     - Parametrii link: https://stackoverflow.com/questions/30115324/pass-props-in-link-react-router
@@ -39,6 +42,8 @@
         - https://www.youtube.com/watch?v=kghwFYOJiNg
 
  - BackEnd
+    - Instalare Rust:
+        - MacOS: https://www.geeksforgeeks.org/how-to-install-rust-in-macos/
     - Firebase: 
         - https://console.firebase.google.com
         - https://firebase.google.com
