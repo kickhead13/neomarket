@@ -31,6 +31,8 @@
 
 ## Resurse
  - FrontEnd
+    - Instalaer NodeJS:
+        MacOs: https://radixweb.com/blog/installing-npm-and-nodejs-on-windows-and-mac
     - Instalare React:
         - MacOS: https://dev.to/code_jedi/how-to-install-reactjs-on-macos-4hio
         - Arch: https://tutorialforlinux.com/2018/08/16/how-to-install-react-js-on-arch-linux-easy-guide/
