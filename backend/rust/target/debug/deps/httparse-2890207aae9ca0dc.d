@@ -1,0 +1,12 @@
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/libhttparse-2890207aae9ca0dc.rmeta: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/iter.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/macros.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/sse42.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/avx2.rs
+
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/libhttparse-2890207aae9ca0dc.rlib: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/iter.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/macros.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/sse42.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/avx2.rs
+
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/httparse-2890207aae9ca0dc.d: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/iter.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/macros.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/sse42.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/avx2.rs
+
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/lib.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/iter.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/macros.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/mod.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/sse42.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/httparse-1.8.0/src/simd/avx2.rs:

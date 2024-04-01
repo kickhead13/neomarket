@@ -1,0 +1,11 @@
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/libtokio_rustls-cd1eac672eb62f67.rmeta: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/client.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/handshake.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/server.rs
+
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/libtokio_rustls-cd1eac672eb62f67.rlib: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/client.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/handshake.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/server.rs
+
+/home/ana/Desktop/faculta/AN2/PC/neomarket/backend/rust/target/debug/deps/tokio_rustls-cd1eac672eb62f67.d: /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/lib.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/client.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/mod.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/handshake.rs /home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/server.rs
+
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/lib.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/client.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/mod.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/common/handshake.rs:
+/home/ana/.cargo/registry/src/index.crates.io-6f17d22bba15001f/tokio-rustls-0.22.0/src/server.rs:
