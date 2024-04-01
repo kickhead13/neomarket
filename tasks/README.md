@@ -81,9 +81,11 @@
  - Doru:
     - Backend arhitectura bazei de date plus implementarea pe firebase
     - documentare arhitectura
+    - ajutor Frontend
  - Ana:
     - Implementare subrutine C.R.U.D. pentru firebase
     - Implementare A.P.I. secure
+    - ajutor minimal Frontend
 
 # Observație Document
 <h2> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h2>
