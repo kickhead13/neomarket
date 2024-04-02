@@ -10,6 +10,12 @@
     ```
     http://site.com/apicall?param1=idk&param2=idk&...
     ```
+    ```js
+    let param1 = url.param1;
+    let param2 = url.param2;
+    //...
+    //???
+    ```
     - obs:
         - acestea nu trebuie să fie funcționale
         - sunt doar de aspect (deocamdată)

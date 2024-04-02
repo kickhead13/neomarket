@@ -5,5 +5,5 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Debug)]
 struct Response {
-    name: String
+    pub name: String
 }
