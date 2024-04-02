@@ -1,6 +1,6 @@
 # get_test
 
-Prototip funcție:
+Funcție:
 
 ```rs
 #[actix_web::get("/api/test")]
