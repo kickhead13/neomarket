@@ -93,6 +93,40 @@
     - Implementare A.P.I. secure
     - ajutor minimal Frontend
 
+# Săptămâna 7
+
+## Obiective 
+
+ - Frontend:
+    - terminarea lucrului pentru săptămâna 6:
+        - pagină login
+        - pagină home
+        - pagină template utilizator
+    - noi teme de lucru:
+        - pagină template mesaje
+        - pagină template produs
+        - pagină template coș de cumpărături
+ - Backend:
+    - terminarea lucrului pentru săptămâna 6:
+        - CRUD
+        - API
+
+## Resurse
+ - Aceleași ca săptămâna trecută
+
+## Observații
+ - Trebuie să ne punem pe treabă, iar cum săptămâna asta e relativ liberă ar trebui să facem ceva săptămâna asta
+ - N-am să punctez pe nimeni pentru săptămâna 6 pentru că nu s-a făcut mare chestie plus unii n-au făcut nimic, dar de acum încolo voi puncta
+ - Doru și-a îndeplinit toate task-urile și a fost foarte ușor să lucrez cu el fiind destul de disponibil
+
+## Membrii
+ - Yoa
+    - Frontend
+ - Ana 
+    - Backend & teme
+ - Doru
+    - Backend
+
 # Observație Document
 <h2> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h2>
 
