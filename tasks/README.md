@@ -110,9 +110,7 @@
     - terminarea lucrului pentru săptămâna 6:
         - CRUD
         - API
-
-## Resurse
- - Aceleași ca săptămâna trecută
+    - NE HOTĂRÂM CU PRIVIRE LA ENCRIPȚIE ȘI ÎNCEPEM IMPLEMENTAREA
 
 ## Observații
  - Trebuie să ne punem pe treabă, iar cum săptămâna asta e relativ liberă ar trebui să facem ceva săptămâna asta
@@ -124,8 +122,14 @@
     - Frontend
  - Ana 
     - Backend & teme
+    - integrare kybe-rs în proiect ?
  - Doru
     - Backend
+    - research HTTPS / design implementarea HTTPS pentru proiectul nostru
+
+## Resurse
+ - Aceleași ca săptămâna trecută
+ - kybe-rs: https://github.com/rust-crypto-labs/kybe-rs
 
 # Observație Document
 <h2> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h2>
