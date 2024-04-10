@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone )]
 pub struct User {
     pub id: String,
     pub username: String,
@@ -29,6 +29,33 @@ impl User {
             region: "".to_string(),
             profile_pic: "".to_string(),
             account_type: "admin".to_string()
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct Message {
+    pub owners: String,
+    pub time: String,
+    pub message_body: String
+}
+
+impl Message {
+    pub fn new(
+        username1: &str,
+        username2: &str,
+        time: &str,
+        message: &str
+    ) -> Self {
+        let mut owner_vec = Vec::new();
+        owner_vec.push(username1);
+        owner_vec.push(username2);
+        owner_vec.sort();
+        let oowners = format!("{}{}", owner_vec[0], owner_vec[1]);
+        Self {
+            owners: oowners,
+            time: time.to_string(),
+            message_body: message.to_string()
         }
     }
 }
