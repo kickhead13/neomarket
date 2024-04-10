@@ -1,5 +1,3 @@
-use std::fmt::format;
-
 use actix_web;
 use serde::{Deserialize, Serialize};
 

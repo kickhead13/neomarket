@@ -1,34 +1,24 @@
-use std::collections::HashMap;
-
-use firebase_rs::*;
-use firestore::*;
+#![allow(unused_variables)]
+#![allow(dead_code)]
 use serde::{Deserialize, Serialize};
-
 pub mod users;
 
-
+#[allow(dead_code)]
 const USERS_COLLECTION_NAME: &str= "users";
 
 #[derive(Deserialize, Serialize, Debug)]
 struct Response {
     pub name: String
 }
-
-pub fn config_env_var(name: &str) -> Result<String, String> {
-    std::env::var(name).map_err(|e| format!("{}: {}", name, e))
-}
  
+#[allow(dead_code)]
 pub async fn insert_user(
     user: users::User,
-    db: FirestoreDb
+    db: firebase_rs::Firebase
 ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> { 
-    let _ = db.fluent()
-        .insert()
-        .into(USERS_COLLECTION_NAME)
-        .document_id(&user.id)
-        .object(&user)
-        .execute()
-        .await?;
+    
+    let set = db.at(USERS_COLLECTION_NAME).set(&user).await;
     Ok(())
+
 }
 

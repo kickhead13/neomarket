@@ -42,3 +42,25 @@ Tipurile de obiecte stocate în baza de date conectată cu aplicația, și atrib
 * `user_id` - ID-ul utilizatorului (numeric)
 * `avg` - Rating-ul mediu al utilizatorului (numeric)
 * `r5` ... `r1` - Numărul de rating-uri pentru fiecare scor (numeric)
+
+# db::insert_user
+
+```rs
+pub async fn insert_user(
+    user: users::User,
+    db: firebase_rs::Firebase
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> { 
+
+    let set = db.at("users").set(&user).await;
+    Ok(())
+
+}
+```
+
+## Funcționalitatea oferită
+Inserarea datelor unui utilizator în baza de date.
+
+## Resurse
+ - firebase-rs: 
+    - https://docs.rs/firebase-rs/latest/firebase_rs/
+    - https://github.com/emreyalvac/firebase-rs
