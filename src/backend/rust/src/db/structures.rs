@@ -17,19 +17,41 @@ pub struct User {
 
 impl User {
     pub fn new() -> Self {
-        User {
+        Self {
             id: "2".to_string(),
             username: "nobody".to_string(),
+            password: "test".to_string(),
             email: "neomarketapp@gmail.com".to_string(),
             avg_rating: "5".to_string(),
             city: "".to_string(),
             country: "".to_string(),
-            password: "test".to_string(),
             phone_num: "".to_string(),
             region: "".to_string(),
             profile_pic: "".to_string(),
             account_type: "admin".to_string()
         }
+    }
+
+    pub fn new_sign_up_user(
+        username_: String,
+        password_: String,
+        email_: String
+    ) -> Self {
+
+        Self {
+            username: username_,
+            password: password_,
+            email: email_,
+            avg_rating: "5".to_string(),
+            city: "".to_string(),
+            country: "".to_string(),
+            phone_num: "".to_string(),
+            region: "".to_string(),
+            profile_pic: "".to_string(),
+            account_type: "user".to_string(),
+            id: "2".to_string()
+        }
+
     }
 }
 

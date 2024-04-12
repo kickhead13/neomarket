@@ -24,6 +24,7 @@ pub async fn insert_user(
             .at(&user.username)
             .set(&user)
             .await;
+    println!("{:?}", resp);
     Ok(())
 
 }

@@ -14,3 +14,7 @@ pub fn auth_key() -> String {
 pub fn rtdb_url() -> String {
     env_var("RTDB_URL")
 }
+
+pub fn hash_context() -> String {
+    env_var("HASH_CONTEXT")
+}
