@@ -1,32 +1,15 @@
 #![allow(dead_code)]
 use actix_web;
-use serde::{Deserialize, Serialize};
 
 use crate::environment;
 use crate::db;
 use crate::encryption;
 
-#[derive(Deserialize, Serialize, Debug)]
-pub struct TestParamsStruct {
-    param1: String,
-    param2: String
-}
-
-#[derive(Deserialize, Serialize, Debug)]
-pub struct UserParamsStruct {
-    username: String
-}
-
-#[derive(Deserialize, Serialize, Debug)]
-pub struct SignUpUser {
-    username: String,
-    password: String,
-    email:String
-}
+mod structures;
 
 #[actix_web::get("/api/test")]
 pub async fn get_test(
-    req: actix_web::web::Query<TestParamsStruct>
+    req: actix_web::web::Query<structures::TestParamsStruct>
 ) -> impl actix_web::Responder {
     
     actix_web::HttpResponse::Ok().body(
@@ -37,7 +20,7 @@ pub async fn get_test(
 
 #[actix_web::get("/api/fetch_user_password")]
 pub async fn fetch_user_password(
-    req: actix_web::web::Query<UserParamsStruct>
+    req: actix_web::web::Query<structures::UserParamsStruct>
 ) -> impl actix_web::Responder {
 
     let fire_db = firebase_rs::Firebase::auth(
@@ -58,7 +41,7 @@ pub async fn fetch_user_password(
 
 #[actix_web::get("/api/sign_up")]
 pub async fn sign_user_up(
-    req: actix_web::web::Query<SignUpUser>
+    req: actix_web::web::Query<structures::SignUpUser>
 ) -> impl actix_web::Responder {
 
     let username = &req.username;
@@ -77,6 +60,34 @@ pub async fn sign_user_up(
     ).unwrap();
 
     let _ = db::insert_user(user, fire_db).await;
+
+    actix_web::HttpResponse::Ok().body(
+        "{{\"response\":\"ok\"}}"
+    )
+
+}
+
+#[actix_web::get("/api/send_message")]
+pub async fn send_message(
+    req: actix_web::web::Query<structures::SendMessage>
+) -> impl actix_web::Responder {
+
+    let message = db::structures::Message::new(
+        (&req.username1).to_string(),
+        (&req.username2).to_string(),
+        db::utils::current_time(),
+        (&req.body).to_string()
+    );
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let _ = db::send_message(
+        message,
+        fire_db
+    ).await;
 
     actix_web::HttpResponse::Ok().body(
         "{{\"response\":\"ok\"}}"

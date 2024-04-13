@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::db;
+
 #[derive(Serialize, Deserialize, Debug, Clone )]
 pub struct User {
     pub id: String,
@@ -35,7 +37,7 @@ impl User {
     pub fn new_sign_up_user(
         username_: String,
         password_: String,
-        email_: String
+        email_: String 
     ) -> Self {
 
         Self {
@@ -58,26 +60,23 @@ impl User {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Message {
     pub owners: String,
+    pub sender: String,
     pub time: String,
     pub message_body: String
 }
 
 impl Message {
     pub fn new(
-        username1: &str,
-        username2: &str,
-        time: &str,
-        message: &str
+        username1: String,
+        username2: String,
+        time: String,
+        message: String
     ) -> Self {
-        let mut owner_vec = Vec::new();
-        owner_vec.push(username1);
-        owner_vec.push(username2);
-        owner_vec.sort();
-        let oowners = format!("{}{}", owner_vec[0], owner_vec[1]);
         Self {
-            owners: oowners,
-            time: time.to_string(),
-            message_body: message.to_string()
+            owners: db::utils::get_owners_tag(username1.clone(), username2.clone()),
+            time: time,
+            message_body: message,
+            sender: username1
         }
     }
 }

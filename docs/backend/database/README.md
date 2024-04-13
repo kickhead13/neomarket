@@ -60,6 +60,9 @@ pub async fn insert_user(
 ## Funcționalitatea oferită
 Inserarea datelor unui utilizator în baza de date.
 
+## Locație
+```./src/backend/rust/src/db/mod.rs```
+
 ## Resurse
  - firebase-rs: 
     - https://docs.rs/firebase-rs/latest/firebase_rs/

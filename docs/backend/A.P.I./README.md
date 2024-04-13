@@ -14,7 +14,7 @@ pub async fn get_test(
 }
 ```
 
-## Funcționalitate oferită
+## URL
 
 La accesarea URL-ului 'http://localhost:8080/api/test?param1=val1&param2=val2' se va accesa un site web cu următorul conținut:
 ```
@@ -49,7 +49,7 @@ pub async fn fetch_user_password(
 
 }
 ```
-## Funcționalitate oferită
+## URL
 
 La accesarea URL-ului 'http://localhost:8080/api/fetch_user_password?username=val' se va face accesul la o pagină web al cărui corp are un conținut de forma:
 
@@ -110,8 +110,61 @@ pub async fn sign_user_up(
 
 }
 ```
-Acest apel se efectuează tot printr-o cerere GET (chiar dacă ar fi fost mai logic să fie POST). Cererea se va face la adresa 'http://localhost:8080/api/sign_up?username=val1&password=val2&email=val3'.
+
+## URL
+Acest apel se efectuează tot printr-o cerere GET (chiar dacă ar fi fost mai logic să fie POST). Cererea se va face la adresa 'http://localhost:8080/api/sign_up?username=val1&password=val2&email=val3'. 
 
 ## Observație 
+Răspunsul primit în caz de succes este:
 
-ENCRIPTAREA PAROLEI SE REALIZEAZĂ LA ACEST PAS!
+```
+{"response":"ok"}
+```
+LA ACEST PAS ESTE REALIZATĂ ENCRIPTAREA PAROLEI. SĂ SE IA ACEST LUCRU ÎN MINTE DACĂ ENCRIPTĂM PAROLA ȘI LA ALT PAS (DUBLĂ ENCRIPTARE ?).
+
+# send_message
+
+```rs
+#[actix_web::get("/api/send_message")]
+pub async fn send_message(
+    req: actix_web::web::Query<structures::SendMessage>
+) -> impl actix_web::Responder {
+
+    let message = db::structures::Message::new(
+        (&req.username1).to_string(),
+        (&req.username2).to_string(),
+        db::utils::current_time(),
+        (&req.body).to_string()
+    );
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let _ = db::send_message(
+        message,
+        fire_db
+    ).await;
+
+    actix_web::HttpResponse::Ok().body(
+        "{{\"response\":\"ok\"}}"
+    )
+
+}
+```
+
+## URL
+```
+localhost:8080/api/send_message?username1=...&username2=...&body="..."
+```
+ - username1: utilizatorul care trimite mesajul
+ - username2: utilizatorul pentru care este destinat mesajul
+ - body: mesajul efectiv
+
+## Observație
+Da este GET nu POST kys but what about it? Im still a loving person, a good gamer and coder deal with it. În plus, cel mai bine este ca mesajul să fie pus între ghilimele (nu știu ce se întâmplă dacă nu este pus între ghilimele și are spații, mi lene să verific). Răspunsul primit în caz de succes este:
+
+```
+{"response":"ok"}
+```

@@ -7,7 +7,8 @@ pub mod structures;
 pub mod utils;
 
 #[allow(dead_code)]
-const USERS_COLLECTION_NAME: &str= "users";
+const USERS_COLLECTION_NAME: &str = "users";
+const MESSAGE_COLLECTION_NAME: &str = "messages";
 
 #[derive(Deserialize, Serialize, Debug)]
 struct Response {
@@ -53,10 +54,38 @@ pub async fn get_user_by_username(
       .get::<HashMap<String, structures::User>>()
       .await;
 
-    return match user_with_random_string { 
+    match user_with_random_string { 
         Ok(hashmap) => utils::get_user_from_hashmap(&hashmap),
         Err(error) => Vec::<structures::User>::new()
     }
 
 }
 
+pub async fn send_message(
+    message: structures::Message,
+    db: firebase_rs::Firebase
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+
+
+    println!("{:?}", &format!(
+        "by{}convo{}at{}",
+        &message.sender,
+        &message.owners,
+        &message.time
+    ));
+
+    let resp = db.at(MESSAGE_COLLECTION_NAME)
+            .at(
+                //&message.sender
+                &format!(
+                    "by!{}!convo!{}!at!{}!",
+                    &message.sender,
+                    &message.owners,
+                    &message.time
+                )
+            ).set(&message)
+            .await;
+    println!("{:?}", resp);
+    Ok(())
+
+}

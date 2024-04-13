@@ -1,8 +1,8 @@
 # Puncte
 ## Ana 
-Puncte: 0.1
+Puncte: 1.8 (săpt 6)
 ## Doru
-Puncte: 0.2
+Puncte: 2 (săpt 6)
 ## Yoa
-Puncte: 0
+Puncte: 2 (săpt 6)
 
