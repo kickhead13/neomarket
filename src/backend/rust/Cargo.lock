@@ -1355,6 +1355,7 @@ dependencies = [
  "chrono",
  "firebase-rs",
  "serde",
+ "serde_json",
  "sha256",
  "tokio",
 ]

@@ -75,12 +75,11 @@ pub async fn send_message(
     ));
 
     let resp = db.at(MESSAGE_COLLECTION_NAME)
+            .at(&message.owners)
             .at(
                 //&message.sender
                 &format!(
-                    "by!{}!convo!{}!at!{}!",
-                    &message.sender,
-                    &message.owners,
+                    "!{}!",
                     &message.time
                 )
             ).set(&message)
