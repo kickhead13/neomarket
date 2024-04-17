@@ -131,6 +131,36 @@
  - Aceleași ca săptămâna trecută
  - kybe-rs: https://github.com/rust-crypto-labs/kybe-rs
 
+# Săptămâna 8 - 9
+
+## Obiective
+ - Front-End
+    - (dacă nu au fost terminate) cerințele pe săptămâna trecută
+    - Login/SignUP funcțional
+    - Chat funcțional (versiune inițială)
+ - Back-End
+    - realizarea modulelor NodeJS necesare pentru implementarea LogIn/SignUp
+    - finisare A.P.I
+    - IMPLEMENTARE SSL / KYBER
+    - developare sistem recomandare
+
+## Observații
+ - Nu dau puncte pe săpt. 7
+ - Am pus punctele pe săptămâna 6 - dacă aveți observații (nu cred) îmi ziceți
+ - O să dau puncte pe săptămânile astea vă rog faceți (săptămânile includ vacanța)
+
+## Membrii
+ - Yoa 
+    - Front-End
+ - Doru
+    - module NodeJS
+    - Server online minimal
+ - Ana
+    - restul
+
+## Resurse
+ - toate de până acum
+
 # Observație Document
 <h2> Tot ce este scris mai sus este (mai mult sau mai puțin) negociabil, nu e bătut în cuie, dacă nu vă convine îmi scrieți.<h2>
 
