@@ -165,6 +165,19 @@ localhost:8080/api/send_message?username1=...&username2=...&body="..."
 ## Observație
 Da este GET nu POST kys but what about it? Im still a loving person, a good gamer and coder deal with it. În plus, cel mai bine este ca mesajul să fie pus între ghilimele (nu știu ce se întâmplă dacă nu este pus între ghilimele și are spații, mi lene să verific). Răspunsul primit în caz de succes este:
 
+## Cum este stocat un mesaj în DB?
+
+-users
+    -...
+-messages
+    - owners
+        - !time of sent!
+            - <<random string>>
+                - date mesaj...
+
+## Ce este owners?
+ - este string-ul obținut prin concatenarea vectorului [username1, username2] care este ordonat alfabetic
+
 ```
 {"response":"ok"}
 ```
