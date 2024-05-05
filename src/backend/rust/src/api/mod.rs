@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 use actix_web;
+use serde_json;
 
 use crate::environment;
 use crate::db;
@@ -69,7 +70,7 @@ pub async fn sign_user_up(
 
 #[actix_web::get("/api/send_message")]
 pub async fn send_message(
-    req: actix_web::web::Query<structures::SendMessage>
+    req: actix_web::web::Query<structures::ApiMessage>
 ) -> impl actix_web::Responder {
 
     let message = db::structures::Message::new(
@@ -94,3 +95,24 @@ pub async fn send_message(
     )
 
 }
+
+#[actix_web::get("/api/fetch_messages")]
+pub async fn fetch_messages(
+    req: actix_web::web::Query<structures::ApiMessage>
+) -> impl actix_web::Responder {
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let messages = db::fetch_messages_from(
+        (&req.username1).to_string(),
+        (&req.username2).to_string(),
+        (&req.tail).to_string().parse::<u8>().unwrap_or_else(|_|0u8),
+        fire_db
+    ).await;
+
+    actix_web::HttpResponse::Ok().body(
+        format!("{{\"messages\":{} }}", serde_json::json!(messages))     
+    )
+} 
