@@ -18,9 +18,10 @@ pub fn get_owners_tag(
     owner_vec.push(username1);
     owner_vec.push(username2);
     owner_vec.sort();
-
-    format!("{}{}", owner_vec[0], owner_vec[1])
-
+    let mut ret: String = "".to_string();
+    ret.push_str(&owner_vec[0]);
+    ret.push_str(&owner_vec[1]);
+    return ret.replace("\"", "");
 }
 
 pub fn current_time() -> String {

@@ -15,6 +15,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .service(api::fetch_user_password)
                 .service(api::sign_user_up)
                 .service(api::send_message)
+                .service(api::fetch_messages)
         )
         .bind("127.0.0.1:8080")?
         .run()

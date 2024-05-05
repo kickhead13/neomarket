@@ -19,8 +19,9 @@ pub struct SignUpUser {
 }
 
 #[derive(Deserialize, Serialize, Debug)]
-pub struct SendMessage {
+pub struct ApiMessage {
     pub username1: String,
     pub username2: String,
-    pub body: String
+    pub body: String,
+    pub tail: String
 }

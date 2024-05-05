@@ -76,15 +76,45 @@ pub async fn send_message(
 
     let resp = db.at(MESSAGE_COLLECTION_NAME)
             .at(&message.owners)
-            .at(
+            /*.at(
                 //&message.sender
                 &format!(
                     "!{}!",
                     &message.time
                 )
-            ).set(&message)
+            )*/
+            .set(&message)
             .await;
     println!("{:?}", resp);
     Ok(())
+}
+
+pub async fn fetch_messages_from(
+    username1: String,
+    username2: String,
+    tail: u8,
+    db: firebase_rs::Firebase
+) -> Vec<structures::Message> {
+
+    let owners_tag = utils::get_owners_tag(username1, username2);
+    let potential_hash = db.at(MESSAGE_COLLECTION_NAME)
+        .at(&owners_tag)
+        .get::<HashMap<String,structures::Message>>()
+        .await;
+
+    println!("(db) {}", &owners_tag);
+
+    match potential_hash {
+        Ok(hashmap) => {
+            let mut ret_vec = Vec::<structures::Message>::new();
+            for (key, value) in hashmap.into_iter() {
+                ret_vec.push(value.clone());
+            }
+            ret_vec
+        },
+        Err(error) => Vec::<structures::Message>::new()
+    }
 
 }
+
+
