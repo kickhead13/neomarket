@@ -1,0 +1,60 @@
+
+.typing{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 60%; /* Adjust this width as needed */
+    background-color: #ACE2E1;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.mesaj {
+    /* Style adjustments for the input */
+    flex: 1; /* Allow the input to take up more space */
+   
+    width: 100%; /* Remove fixed width so it takes up all available space */
+    font-size: 1.5rem;
+    background: 41C9E2;
+    color: black;
+    outline: none;
+    border: none;
+    padding: 0 10px;
+  }
+  
+.trimite {
+    /* Style adjustments for the button */
+    background-color: #008DDA; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 1.25rem;
+}
+ 
+.chat {
+    position: fixed; /* Keeps the element fixed in the view */
+    top: 50%; /* Positions the element at the vertical center */
+    left: 50%; /* Positions the element at the horizontal center */
+    transform: translate(-50%, -50%); /* Corrects the offset from the top and left properties */
+    
+    width: 102vh; /* Set the desired width */
+    height: 94vh; /* Set the desired height */
+
+    /* Background color */
+    background-color: #41C9E2;
+
+    /* Other style properties */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center children horizontally */
+    align-items: center; /* Center children vertically */
+}
+  
+
+  
