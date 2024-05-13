@@ -40,7 +40,7 @@ pub async fn delete_user_by_username(
       .at(username)
       .delete()
       .await;
-    println!("deleted user {}: {:?}", username, resp);
+    println!("deleted user {}: {:?}", username, resp);
     Ok(())
     
 }

@@ -80,18 +80,10 @@ pub async fn delete_user(
         &environment::auth_key()
     ).unwrap();
 
-    //let check = fire_db.at(db::USERS_COLLECTION_NAME).at(&username).delete().await;
-    //println!("{:?} {}", check, &username);
-
-   // match
    let _ = db::delete_user_by_username(
         &username,
         fire_db
     ).await;
-    //) {
-   //     Ok(()) => println!("ok!"),
-   //     Err(e) => println!("{:?}", e)
-    //}
 
     actix_web::HttpResponse::Ok().body(
         "{{\"response\":\"ok\"}}"
