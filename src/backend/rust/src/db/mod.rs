@@ -7,8 +7,8 @@ pub mod structures;
 pub mod utils;
 
 #[allow(dead_code)]
-const USERS_COLLECTION_NAME: &str = "users";
-const MESSAGE_COLLECTION_NAME: &str = "messages";
+pub const USERS_COLLECTION_NAME: &str = "users";
+pub const MESSAGE_COLLECTION_NAME: &str = "messages";
 
 #[derive(Deserialize, Serialize, Debug)]
 struct Response {
@@ -25,7 +25,7 @@ pub async fn insert_user(
             .at(&user.username)
             .set(&user)
             .await;
-    println!("{:?}", resp);
+    println!("inserted user {:?}: {:?}", user, resp);
     Ok(())
 
 }
@@ -36,10 +36,11 @@ pub async fn delete_user_by_username(
     db: firebase_rs::Firebase
 ) ->  Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
-    let _ = db.at(USERS_COLLECTION_NAME)
+    let resp = db.at(USERS_COLLECTION_NAME)
       .at(username)
       .delete()
       .await;
+    println!("deleted user {}: {:?}", username, resp);
     Ok(())
     
 }
@@ -76,13 +77,6 @@ pub async fn send_message(
 
     let resp = db.at(MESSAGE_COLLECTION_NAME)
             .at(&message.owners)
-            /*.at(
-                //&message.sender
-                &format!(
-                    "!{}!",
-                    &message.time
-                )
-            )*/
             .set(&message)
             .await;
     println!("{:?}", resp);

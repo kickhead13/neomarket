@@ -68,6 +68,36 @@ pub async fn sign_user_up(
 
 }
 
+#[actix_web::get("/api/delete_user")]
+pub async fn delete_user(
+    req: actix_web::web::Query<structures::UserParamsStruct>
+) -> impl actix_web::Responder {
+
+    let username = &req.username;
+    
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    //let check = fire_db.at(db::USERS_COLLECTION_NAME).at(&username).delete().await;
+    //println!("{:?} {}", check, &username);
+
+   // match
+   let _ = db::delete_user_by_username(
+        &username,
+        fire_db
+    ).await;
+    //) {
+   //     Ok(()) => println!("ok!"),
+   //     Err(e) => println!("{:?}", e)
+    //}
+
+    actix_web::HttpResponse::Ok().body(
+        "{{\"response\":\"ok\"}}"
+    )
+}
+
 #[actix_web::get("/api/send_message")]
 pub async fn send_message(
     req: actix_web::web::Query<structures::ApiMessage>
