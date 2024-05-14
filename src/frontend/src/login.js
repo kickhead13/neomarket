@@ -1,14 +1,39 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 const LoginSignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
     const navigate = useNavigate(); 
 
+    const tryAuth = (email, password) => {
+        let url = "http://localhost:8080/api/fetch_user_password?username=${email}";
+        var compareTo;
+        fetch(url)
+            .then(res => {var obj = res.json()
+            obj.then(data => {compareTo = data['password']})
+            })
+            .catch(function(err){return false;})
+        const encoder = new TextEncoder();
+        const enc = encoder.encode(password);
+        const hash = crypto.subtle.digest("SHA-256", enc);
+        return (hash === compareTo);
+    }
+    
+    const tryRegister = (name, password, email) => {
+        let url = "http://localhost:8080/api/sign_up?username=${name}&password=${password}&email=${email}";
+        var compareTo;
+        fetch(url)
+            .then(res => {var obj = res.json()
+            obj.then(data => {compareTo = data['response']})
+            })
+            .catch(function(err){return false;})
+        return (compareTo === "ok");
+    }
+    
     const onLoginButtonClick = () => {
         // Reset error messages
         setEmailError('');
@@ -34,8 +59,14 @@ const LoginSignupPage = () => {
 
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
+        if (tryAuth(email, password) == true)
+        {
         navigate('/layout'); // Navigate to HomePage.js
-
+        }
+        else{
+            setPasswordError('Invalid credentials');
+            return;
+        }
         // Hide the login form
         setIsLoginFormVisible(false);
     };
@@ -65,7 +96,14 @@ const LoginSignupPage = () => {
 
         // Sign-up logic here...
         // If successful, redirect the user to HomePage.js
-        navigate('/layout'); 
+        if(tryRegister(name, password, email))
+        {
+        navigate('/layout');
+        }
+        else
+        {
+            setEmailError('Register failed, internal error');
+        }
         // Hide the signup form
         setIsLoginFormVisible(true);
     };
@@ -146,8 +184,8 @@ const LoginSignupPage = () => {
                             type="name"
                             placeholder="Enter your name"
                             className="inputBox"
-                            value={password}
-                            
+                            value={name}
+                            onChange={(ev) => setName(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
