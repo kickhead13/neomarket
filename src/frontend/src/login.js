@@ -10,7 +10,7 @@ const LoginSignupPage = () => {
     const navigate = useNavigate(); 
 
     const tryAuth = (email, password) => {
-        let url = "http://localhost:8080/api/fetch_user_password?username=${email}";
+        let url = "http://localhost:8080/api/fetch_user_password?username=" + email;
         var compareTo;
         fetch(url)
             .then(res => {var obj = res.json()
@@ -18,13 +18,16 @@ const LoginSignupPage = () => {
             })
             .catch(function(err){return false;})
         const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
         const enc = encoder.encode(password);
-        const hash = crypto.subtle.digest("SHA-256", enc);
-        return (hash === compareTo);
+        var compared;
+        crypto.subtle.digest("SHA-256", enc).then(result => {compared = decoder.decode(result)});
+        console.log(compared);
+        return (compared === compareTo);
     }
     
     const tryRegister = (name, password, email) => {
-        let url = "http://localhost:8080/api/sign_up?username=${name}&password=${password}&email=${email}";
+        let url = "http://localhost:8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
         var compareTo;
         fetch(url)
             .then(res => {var obj = res.json()
@@ -46,7 +49,7 @@ const LoginSignupPage = () => {
         }
         if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
             setEmailError('Please enter a valid email');
-            return;
+            //return;
         }
         if (password === '') {
             setPasswordError('Please enter a password');
