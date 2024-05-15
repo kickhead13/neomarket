@@ -5,7 +5,7 @@ let all_product = [
     {
       id: 9,
       seller_id: 1,
-      title: "Laptop Asus",
+      title: "Laptop Test",
       description: "Laptop Asus blabla negru frumos",
       image: img,
       price: 24.5,
