@@ -1,4 +1,4 @@
 package-lock.json
 src/frontend/TLS/*
-/src/frontend/node_modules/
-/src/backend/rust/target
+src/frontend/node_modules/
+src/backend/rust/target
