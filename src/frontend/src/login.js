@@ -9,31 +9,39 @@ const LoginSignupPage = () => {
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
     const navigate = useNavigate(); 
 
-    const tryAuth = (email, password) => {
-        let url = "http://localhost:8080/api/fetch_user_password?username=" + email;
+    async function tryAuth(email, password){
+        let host = window.location.hostname;
+        let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
         var compareTo;
-        fetch(url)
+        await fetch(url)
             .then(res => {var obj = res.json()
             obj.then(data => {compareTo = data['password']})
             })
-            .catch(function(err){return false;})
+            .catch(function(err){compareTo="fail";})
+        if(!compareTo)
+        {
+            return false;
+        }
         const encoder = new TextEncoder();
         const decoder = new TextDecoder();
         const enc = encoder.encode(password);
-        var compared;
-        crypto.subtle.digest("SHA-256", enc).then(result => {compared = decoder.decode(result)});
-        console.log(compared);
-        return (compared === compareTo);
+        const hash = await crypto.subtle.digest("SHA-256", enc);
+        const hashArray = Array.from(new Uint8Array(hash));
+        const hashHex = hashArray
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+        return (hashHex === compareTo);
     }
     
-    const tryRegister = (name, password, email) => {
-        let url = "http://localhost:8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
+    async function tryRegister(name, password, email){
+        let host = window.location.hostname;
+        let url = "http://" + host + ":8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
         var compareTo;
-        fetch(url)
+        await fetch(url)
             .then(res => {var obj = res.json()
             obj.then(data => {compareTo = data['response']})
             })
-            .catch(function(err){return false;})
+            .catch(function(err){compareTo="fail";})
         return (compareTo === "ok");
     }
     
