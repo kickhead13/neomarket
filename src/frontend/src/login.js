@@ -24,7 +24,7 @@ const LoginSignupPage = () => {
         }
         const encoder = new TextEncoder();
         const decoder = new TextDecoder();
-        const enc = encoder.encode(password);
+        const enc = encoder.encode(password + "sha512 reallly really secret context"); //trollface
         const hash = await crypto.subtle.digest("SHA-256", enc);
         const hashArray = Array.from(new Uint8Array(hash));
         const hashHex = hashArray
