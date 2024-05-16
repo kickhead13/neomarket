@@ -80,3 +80,35 @@ impl Message {
         }
     }
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Prod {
+    pub id: String,
+    pub seller: String,
+    pub title: String,
+    pub description: String,
+    pub img: String,
+    pub category: String,
+    pub price: String
+}
+
+impl Prod {
+    pub fn new (
+        seller: String,
+        title: String,
+        description: String,
+        img: String,
+        category: String,
+        price: String
+    ) -> Self {
+        Self {
+            id: format!("{}{}", seller, title),
+            seller: seller,
+            title: title,
+            description: description,
+            img: img,
+            category: category,
+            price: price
+        }
+    }
+}

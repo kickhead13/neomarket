@@ -19,7 +19,6 @@ pub fn decrypt_url(
 pub fn encrypt_password(
     password: &str
 ) -> String  {
-
     sha256::digest(
         format!(
             "{}{}",
@@ -27,5 +26,4 @@ pub fn encrypt_password(
             &environment::hash_context()
         )
     )
-
 }
