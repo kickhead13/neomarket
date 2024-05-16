@@ -10,7 +10,8 @@ const LoginSignupPage = () => {
     const [compareTo, setCompareTo] = useState("fail");
     const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
-
+    const superContext = "sha512 reallly really secret context";
+	
     async function tryAuth(email, password){
         let host = window.location.hostname;
         host = "10.144.131.142";
@@ -34,9 +35,7 @@ const LoginSignupPage = () => {
         }
         const encoder = new TextEncoder();
         const decoder = new TextDecoder();
-        const context = "sha512 reallly really secret context";
-        console.log(email);
-        const enc = encoder.encode(password+context);
+        const enc = encoder.encode(password + superContext); //trollface :3
         const hash = await crypto.subtle.digest("SHA-256", enc);
         const hashArray = Array.from(new Uint8Array(hash));
         const hashHex = hashArray
