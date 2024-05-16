@@ -11,26 +11,24 @@ const LoginSignupPage = () => {
     const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
-	
+    
     async function tryAuth(email, password){
        let host = window.location.hostname;
         //host = "10.144.131.142";
         let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
         //var compareTo;
-        await fetch(url)
-            .then(res => {
-              console.log(res);
-              if (res != undefined) {
-                var obj = res.json();
-                obj.then(data => {
-                  console.log(data);
-                  setCompareTo(data['password']);
-                })
-              }
-            })
-            .catch(function(err){setCompareTo("fail");console.log(err);return false;})
-        if(!compareTo)
-        {
+        const api_data = await fetch(url).catch(function(err){setCompareTo("fail");console.log(err);return false;});
+        if(!api_data){
+            return false;
+        }
+        console.log(api_data);
+        const data= await api_data.json().catch(function(err){setCompareTo("fail");console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        console.log(data);
+        setCompareTo(data['password']);
+        if(!compareTo){
             return false;
         }
         const encoder = new TextEncoder();
@@ -50,11 +48,16 @@ const LoginSignupPage = () => {
         let host = window.location.hostname;
         let url = "http://" + host + ":8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
         var compareTo;
-        await fetch(url)
-            .then(res => {var obj = res.json()
-            obj.then(data => {compareTo = data['response']})
-            })
-            .catch(function(err){compareTo="fail";})
+        const resp = await fetch(url).catch(function(err){setCompareTo("fail");console.log(err);return false;});
+        if(!resp){
+            return false;
+        }
+        const data= await resp.json().catch(function(err){setCompareTo("fail");console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        console.log(data);
+        setCompareTo(data['response']);
         return (compareTo === "ok");
     }
     
