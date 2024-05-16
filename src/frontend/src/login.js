@@ -7,29 +7,43 @@ const LoginSignupPage = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
+    const [compareTo, setCompareTo] = useState("fail");
+    const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
 
     async function tryAuth(email, password){
         let host = window.location.hostname;
+        host = "10.144.131.142";
         let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
-        var compareTo;
+        //var compareTo;
         await fetch(url)
-            .then(res => {var obj = res.json()
-            obj.then(data => {compareTo = data['password']})
+            .then(res => {
+              console.log(res);
+              if (res != undefined) {
+                var obj = res.json();
+                obj.then(data => {
+                  console.log(data);
+                  setCompareTo(data['password']);
+                })
+              }
             })
-            .catch(function(err){compareTo="fail";})
+            .catch(function(err){setCompareTo("fail");console.log(err);return false;})
         if(!compareTo)
         {
             return false;
         }
         const encoder = new TextEncoder();
         const decoder = new TextDecoder();
-        const enc = encoder.encode(password);
+        const context = "sha512 reallly really secret context";
+        console.log(email);
+        const enc = encoder.encode(password+context);
         const hash = await crypto.subtle.digest("SHA-256", enc);
         const hashArray = Array.from(new Uint8Array(hash));
         const hashHex = hashArray
             .map((b) => b.toString(16).padStart(2, "0"))
             .join("");
+        console.log(hashHex);
+        console.log(compareTo);
         return (hashHex === compareTo);
     }
     
@@ -70,13 +84,14 @@ const LoginSignupPage = () => {
 
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
-        if (tryAuth(email, password) == true)
+        tryAuth(email, password);
+        if(credentials == true)
         {
-        navigate('/layout'); // Navigate to HomePage.js
+          navigate('/layout'); // Navigate to HomePage.js
         }
         else{
-            setPasswordError('Invalid credentials');
-            return;
+          setPasswordError('Invalid credentials');
+          return;
         }
         // Hide the login form
         setIsLoginFormVisible(false);
@@ -109,7 +124,7 @@ const LoginSignupPage = () => {
         // If successful, redirect the user to HomePage.js
         if(tryRegister(name, password, email))
         {
-        navigate('/layout');
+          navigate('/layout');
         }
         else
         {

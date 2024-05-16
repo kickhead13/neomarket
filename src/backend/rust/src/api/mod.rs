@@ -1,12 +1,18 @@
 #![allow(dead_code)]
 use actix_web;
 use serde_json;
+use serde;
 
 use crate::environment;
 use crate::db;
 use crate::encryption;
 
 mod structures;
+
+#[derive(serde::Serialize)]
+pub struct FetchResponse {
+    pub password: String
+}
 
 #[actix_web::get("/api/test")]
 pub async fn get_test(
@@ -34,8 +40,11 @@ pub async fn fetch_user_password(
         fire_db
     ).await;
     
-    actix_web::HttpResponse::Ok().body(
-        format!("{{\"password\":{:?}}}", vect[0].password)
+    actix_web::HttpResponse::Ok().json(
+        &FetchResponse {
+            password: vect[0].password.clone(),
+        }
+        //format!("{{\"password\":{:?}}}", vect[0].password)
     )
 
 }
