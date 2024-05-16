@@ -13,8 +13,8 @@ const LoginSignupPage = () => {
     const superContext = "sha512 reallly really secret context";
 	
     async function tryAuth(email, password){
-        let host = window.location.hostname;
-        host = "10.144.131.142";
+       let host = window.location.hostname;
+        //host = "10.144.131.142";
         let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
         //var compareTo;
         await fetch(url)
