@@ -1,18 +1,11 @@
 #![allow(dead_code)]
 use actix_web;
-use serde_json;
-use serde;
 
 use crate::environment;
 use crate::db;
 use crate::encryption;
 
 mod structures;
-
-#[derive(serde::Serialize)]
-pub struct FetchResponse {
-    pub password: String
-}
 
 #[actix_web::get("/api/test")]
 pub async fn get_test(
@@ -41,7 +34,7 @@ pub async fn fetch_user_password(
     ).await;
     
     actix_web::HttpResponse::Ok().json(
-        &FetchResponse {
+        &structures::FetchResponse {
             password: vect[0].password.clone(),
         }
         //format!("{{\"password\":{:?}}}", vect[0].password)
@@ -121,8 +114,10 @@ pub async fn send_message(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().body(
-        "{{\"response\":\"ok\"}}"
+    actix_web::HttpResponse::Ok().json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
     )
 
 }
@@ -143,7 +138,64 @@ pub async fn fetch_messages(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().body(
-        format!("{{\"messages\":{} }}", serde_json::json!(messages))     
+    actix_web::HttpResponse::Ok().json(
+        &structures::MessageList {
+            list: messages
+        }
+        //format!("{{\"messages\":{} }}", serde_json::json!(messages))     
     )
 } 
+
+#[actix_web::get("/api/new_prod")]
+pub async fn new_prod(
+    req: actix_web::web::Query<db::structures::Prod>
+) -> impl actix_web::Responder {
+    
+    let prod = db::structures::Prod::new(
+        (&req.seller).to_string(),
+        (&req.title).to_string(),
+        (&req.description).to_string(),
+        (&req.img).to_string(),
+        (&req.category).to_string(),
+        (&req.price).to_string()
+    );
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let _ = db::send_prod(
+        prod,
+        fire_db
+    ).await;
+
+    actix_web::HttpResponse::Ok().json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
+    )
+}
+
+#[actix_web::get("/api/fetch_prods_from_cat")]
+pub async fn fetch_prods_from_cat(
+    req: actix_web::web::Query<structures::FetchProdsCat>
+) -> impl actix_web::Responder {
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let prod_list = db::fetch_prods(
+        (&req.category).to_string(),
+        fire_db
+    ).await;
+
+    actix_web::HttpResponse::Ok().json(
+        &structures::ProdList {
+            list: prod_list
+        }
+    )
+
+}
