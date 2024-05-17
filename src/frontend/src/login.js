@@ -7,34 +7,28 @@ const LoginSignupPage = () => {
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
-    const [compareTo, setCompareTo] = useState("fail");
-    const [credentials, setCredentials] = useState(false);
+    //const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
-	
+    
     async function tryAuth(email, password){
-       let host = window.location.hostname;
+        let host = window.location.hostname;
         //host = "10.144.131.142";
         let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
-        //var compareTo;
-        await fetch(url)
-            .then(res => {
-              console.log(res);
-              if (res != undefined) {
-                var obj = res.json();
-                obj.then(data => {
-                  console.log(data);
-                  setCompareTo(data['password']);
-                })
-              }
-            })
-            .catch(function(err){setCompareTo("fail");console.log(err);return false;})
-        if(!compareTo)
-        {
+        var compareTo;
+        const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!api_data){
+            return false;
+        }
+        const data= await api_data.json().catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        compareTo = data['password'];
+        if(!compareTo){
             return false;
         }
         const encoder = new TextEncoder();
-        const decoder = new TextDecoder();
         const enc = encoder.encode(password + superContext); //trollface :3
         const hash = await crypto.subtle.digest("SHA-256", enc);
         const hashArray = Array.from(new Uint8Array(hash));
@@ -50,11 +44,16 @@ const LoginSignupPage = () => {
         let host = window.location.hostname;
         let url = "http://" + host + ":8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
         var compareTo;
-        await fetch(url)
-            .then(res => {var obj = res.json()
-            obj.then(data => {compareTo = data['response']})
-            })
-            .catch(function(err){compareTo="fail";})
+        const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!resp){
+            return false;
+        }
+        const data= await resp.json().catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        console.log(data);
+        compareTo = data['response'];
         return (compareTo === "ok");
     }
     
@@ -83,10 +82,9 @@ const LoginSignupPage = () => {
 
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
-        tryAuth(email, password);
-        if(credentials == true)
+        if(tryAuth(email, password))
         {
-          navigate('/layout'); // Navigate to HomePage.js
+          navigate('/layout?user=' + email); // Navigate to HomePage.js
         }
         else{
           setPasswordError('Invalid credentials');
@@ -123,7 +121,7 @@ const LoginSignupPage = () => {
         // If successful, redirect the user to HomePage.js
         if(tryRegister(name, password, email))
         {
-          navigate('/layout');
+          navigate('/login');
         }
         else
         {

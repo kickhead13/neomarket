@@ -33,7 +33,7 @@ pub async fn fetch_user_password(
         fire_db
     ).await;
     
-    actix_web::HttpResponse::Ok().json(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::FetchResponse {
             password: vect[0].password.clone(),
         }
@@ -64,7 +64,7 @@ pub async fn sign_user_up(
 
     let _ = db::insert_user(user, fire_db).await;
 
-    actix_web::HttpResponse::Ok().body(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).body(
         "{{\"response\":\"ok\"}}"
     )
 
@@ -87,7 +87,7 @@ pub async fn delete_user(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().body(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).body(
         "{{\"response\":\"ok\"}}"
     )
 }
@@ -114,7 +114,7 @@ pub async fn send_message(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().json(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::ConfirmResponse {
             confirm: "ok".to_string()
         }
@@ -138,7 +138,7 @@ pub async fn fetch_messages(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().json(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::MessageList {
             list: messages
         }
@@ -170,7 +170,7 @@ pub async fn new_prod(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().json(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::ConfirmResponse {
             confirm: "ok".to_string()
         }
@@ -192,7 +192,7 @@ pub async fn fetch_prods_from_cat(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().json(
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::ProdList {
             list: prod_list
         }
