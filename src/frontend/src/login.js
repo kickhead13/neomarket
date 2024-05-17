@@ -3,10 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 const LoginSignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [country, setCountry] = useState('');
+    const [region, setRegion] = useState('');
+    const [city, setCity] = useState('');
     const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
+
+    const [lstatus, setLstatus] = useState('waiting');
     //const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
@@ -37,6 +42,7 @@ const LoginSignupPage = () => {
             .join("");
         console.log(hashHex);
         console.log(compareTo);
+        setLstatus(hashHex === compareTo ? 'true' : 'false');
         return (hashHex === compareTo);
     }
     
@@ -82,16 +88,19 @@ const LoginSignupPage = () => {
 
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
-        if(tryAuth(email, password))
-        {
-          navigate('/layout?user=' + email); // Navigate to HomePage.js
+        let check = tryAuth(email, password);
+        //while(lstatus === 'waiting') {}
+        check.then(val => {
+          if(val === true) {
+            console.log(check);
+            navigate('/layout?user=' + email); // Navigate to HomePage.js
+          } else {
+            setPasswordError('Invalid credentials');
+          }
         }
-        else{
-          setPasswordError('Invalid credentials');
-          return;
-        }
+        ).catch(err => console.log(err));
         // Hide the login form
-        setIsLoginFormVisible(false);
+        //setIsLoginFormVisible(false);
     };
 
     const onSignupButtonClick = () => {
@@ -218,8 +227,8 @@ const LoginSignupPage = () => {
                             type="country"
                             placeholder="Enter your country"
                             className="inputBox"
-                            value={password}
-                           
+                            value={country}
+                            onChange={(ev) => setCountry(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
@@ -229,8 +238,8 @@ const LoginSignupPage = () => {
                             type="region"
                             placeholder="Enter your region"
                             className="inputBox"
-                            value={password}
-                           
+                            value={region}
+                            onChange={(ev)=>setRegion(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
@@ -240,8 +249,8 @@ const LoginSignupPage = () => {
                             type="city"
                             placeholder="Enter your city"
                             className="inputBox"
-                            value={password}
-                            
+                            value={city}
+                            onChange={(ev)=>setCity(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>

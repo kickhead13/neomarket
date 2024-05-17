@@ -64,8 +64,10 @@ pub async fn sign_user_up(
 
     let _ = db::insert_user(user, fire_db).await;
 
-    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).body(
-        "{{\"response\":\"ok\"}}"
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
     )
 
 }
@@ -87,8 +89,10 @@ pub async fn delete_user(
         fire_db
     ).await;
 
-    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).body(
-        "{{\"response\":\"ok\"}}"
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
     )
 }
 
