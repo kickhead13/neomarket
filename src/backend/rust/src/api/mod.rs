@@ -33,6 +33,8 @@ pub async fn fetch_user_password(
         fire_db
     ).await;
     
+    println!(" -> api/fetch_user_password : {}", (&req.username).to_string());
+
     actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::FetchResponse {
             password: vect[0].password.clone(),
@@ -174,6 +176,15 @@ pub async fn new_prod(
         fire_db
     ).await;
 
+    println!(" -> api/new_prod : {} {} {} {} {} {}",
+        (&req.seller).to_string(),
+        (&req.title).to_string(),
+        (&req.description).to_string(),
+        (&req.img).to_string(),
+        (&req.category).to_string(),
+        (&req.price).to_string()
+    );
+
     actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::ConfirmResponse {
             confirm: "ok".to_string()
@@ -196,10 +207,38 @@ pub async fn fetch_prods_from_cat(
         fire_db
     ).await;
 
+    println!(" -> api/fetch_prods_from_cat : {}", (&req.category).to_string());
+
     actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
         &structures::ProdList {
             list: prod_list
         }
     )
+}
 
+#[actix_web::get("/api/send_email")]
+pub async fn send_email(
+    req: actix_web::web::Query<structures::Email>
+) -> impl actix_web::Responder {
+
+    let email = &req.email;
+    let code = &req.code;
+
+    let output = std::process::Command::new("python")
+        .arg(environment::abs_path("../scripts/email_sender"))
+        .arg(email)
+        .arg(code)
+        .output()
+        .expect("Failed to execute command");
+
+    match std::str::from_utf8(output.stderr.as_slice()) {
+        Ok(err) => println!(" -> api/send_email : (){:?}()", err),
+        Err(_) => println!("..."),
+    }
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
+    )
 }

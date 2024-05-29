@@ -27,6 +27,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .service(api::delete_user)
                 .service(api::new_prod)
                 .service(api::fetch_prods_from_cat)
+                .service(api::send_email)
             )
             .bind(lan_ip_str)?
             .run()

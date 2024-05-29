@@ -18,3 +18,14 @@ pub fn rtdb_url() -> String {
 pub fn hash_context() -> String {
     env_var("HASH_CONTEXT")
 }
+
+pub fn abs_path(path: &str) -> String {
+    let path = std::path::PathBuf::from(path);
+    match std::fs::canonicalize(&path) {
+        Ok(abspath) => {
+            let test = String::from(abspath.clone().to_str().expect("../scripts/email_sender.py"));
+            test.clone()
+        },
+        Err(_) => String::from("../scripts/email_sender.py")
+    }
+}

@@ -51,3 +51,9 @@ pub struct ApiMessage {
     pub body: String,
     pub tail: String
 }
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct Email {
+    pub email: String,
+    pub code: String
+}
