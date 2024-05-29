@@ -44,6 +44,38 @@ pub async fn fetch_user_password(
 
 }
 
+#[actix_web::get("/api/check_user_password")]
+pub async fn check_user_password(
+    req: actix_web::web::Query<structures::CheckUserPassword>
+) -> impl actix_web::Responder {
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let vect = db::get_user_by_username(
+        &req.username,
+        fire_db
+    ).await;
+    
+    println!(" -> api/check_user_password : {}", (&req.username).to_string());
+ 
+    if String::from(&req.password_hash) == vect[0].password {
+        actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+            &structures::ConfirmResponse {
+                confirm: "ok".to_string(),
+            }
+        )
+    } else {
+        actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+            &structures::ConfirmResponse {
+                confirm: "nok".to_string(),
+            }
+        )
+    }
+}
+
 #[actix_web::get("/api/sign_up")]
 pub async fn sign_user_up(
     req: actix_web::web::Query<structures::SignUpUser>
