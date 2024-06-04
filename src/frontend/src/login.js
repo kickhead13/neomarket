@@ -16,10 +16,17 @@ const LoginSignupPage = () => {
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
     
-    async function tryAuth(email, password){
+    async function tryAuth(name, password){
+        const encoder = new TextEncoder();
+        const enc = encoder.encode(password + superContext); //trollface :3
+        const hash = await crypto.subtle.digest("SHA-256", enc);
+        const hashArray = Array.from(new Uint8Array(hash));
+        const hashHex = hashArray
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
         let host = window.location.hostname;
         //host = "10.144.131.142";
-        let url = "http://" + host + ":8080/api/fetch_user_password?username=" + email;
+        let url = "http://" + host + ":8080/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
         var compareTo;
         const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!api_data){
@@ -29,21 +36,12 @@ const LoginSignupPage = () => {
         if(!data){
             return false;
         }
-        compareTo = data['password'];
+        compareTo = data['confirm'];
         if(!compareTo){
             return false;
         }
-        const encoder = new TextEncoder();
-        const enc = encoder.encode(password + superContext); //trollface :3
-        const hash = await crypto.subtle.digest("SHA-256", enc);
-        const hashArray = Array.from(new Uint8Array(hash));
-        const hashHex = hashArray
-            .map((b) => b.toString(16).padStart(2, "0"))
-            .join("");
-        console.log(hashHex);
-        console.log(compareTo);
-        setLstatus(hashHex === compareTo ? 'true' : 'false');
-        return (hashHex === compareTo);
+        setLstatus(compareTo === "ok" ? 'true' : 'false');
+        return (compareTo === "ok");
     }
     
     async function tryRegister(name, password, email){
