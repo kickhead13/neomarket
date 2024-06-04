@@ -8,7 +8,53 @@ const LoginSignupPage = () => {
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
     const navigate = useNavigate(); 
-
+    const superContext = "sha512 reallly really secret context";
+    
+    async function tryAuth(name, password){
+        const encoder = new TextEncoder();
+        const enc = encoder.encode(password + superContext); //trollface :3
+        const hash = await crypto.subtle.digest("SHA-256", enc);
+        const hashArray = Array.from(new Uint8Array(hash));
+        const hashHex = hashArray
+            .map((b) => b.toString(16).padStart(2, "0"))
+            .join("");
+        let host = window.location.hostname;
+        //host = "10.144.131.142";
+        let url = "http://" + host + ":8080/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
+        var compareTo;
+        const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!api_data){
+            return false;
+        }
+        const data= await api_data.json().catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        compareTo = data['confirm'];
+        if(!compareTo){
+            return false;
+        }
+        setLstatus(compareTo === "ok" ? 'true' : 'false');
+        return (compareTo === "ok");
+    }
+    
+    async function tryRegister(name, password, email){
+        let host = window.location.hostname;
+        let url = "http://" + host + ":8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
+        var compareTo;
+        const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!resp){
+            return false;
+        }
+        const data= await resp.json().catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        console.log(data);
+        compareTo = data['response'];
+        return (compareTo === "ok");
+    }
+    
     const onLoginButtonClick = () => {
         // Reset error messages
         setEmailError('');
