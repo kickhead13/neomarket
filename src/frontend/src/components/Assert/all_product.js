@@ -1,22 +1,18 @@
 import React from "react"
 import img from "./img.jpeg"
 
-let kickhead13 = 'kickhead13';
-let nobody = 'nobody';
-const alexana123 = 'alexana123';
-
 let all_product = [
     {
       id: 9,
-      seller_id: kickhead13,
-      title: "Laptop Test",
+      seller_id: 1,
+      title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
       price: 24.5,
     },
     {
       id: 8,
-      seller_id: nobody,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -24,7 +20,7 @@ let all_product = [
     },
     {
       id: 7,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -32,7 +28,7 @@ let all_product = [
     },
     {
       id: 1,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -40,7 +36,7 @@ let all_product = [
     },
     {
       id: 2,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -48,7 +44,7 @@ let all_product = [
     },
     {
       id: 3,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -56,7 +52,7 @@ let all_product = [
     },
     {
       id: 4,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -64,7 +60,7 @@ let all_product = [
     },
     {
       id: 5,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
@@ -72,7 +68,7 @@ let all_product = [
     },
     {
       id: 6,
-      seller_id: alexana123,
+      seller_id: 1,
       title: "Laptop Asus",
       description: "Laptop Asus blabla negru frumos",
       image: img,
