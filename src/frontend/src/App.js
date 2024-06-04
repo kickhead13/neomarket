@@ -8,6 +8,7 @@ import Cart from "./components/Cart";
 import Anunt from "./components/Anunt";
 import Account from "./components/Account";
 import Product from "./components/Product";
+import Email from "./email"
 import './App.css'
 import { useState } from 'react'
 
@@ -21,10 +22,11 @@ function App() {
         <Routes>
         <Route path="/" element={<Home email={email} loggedIn={loggedIn} setLoggedIn={setLoggedIn} />} />
         <Route path="/login" element={<Login setLoggedIn={setLoggedIn} setEmail={setEmail} />} />
+        <Route path="/email" element={<Email />} />
         <Route path="/layout" element={<Layout />} >
-          <Route index element={<Home2 />} /> 
-          <Route path="/layout/cart" element={<Cart />} />
+          <Route index element={<Home2 />} />  
         </Route>
+        <Route path="/cart" element={<Cart />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/account" element={<Account />} />
         <Route path="/anunt" element={<Anunt />} />

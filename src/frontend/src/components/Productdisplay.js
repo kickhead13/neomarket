@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./styles/Productdisplaystyles.css"
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { ShopContext } from './Context/ShopContext';
 
 const Productdisplay = (props) => {
-  const {product} = props;
-  const [sp, setSp] = useSearchParams();
-  const wuser = sp.get('user');
+    const {product} = props;
+    const {addToCart} = useContext(ShopContext);
   return (
     <div className='productdisplay'>
 
@@ -24,9 +24,9 @@ const Productdisplay = (props) => {
                 {product.description}
             </div>
             <div className='productdisplay-right-seller'>
-                <Link to={"/account?user="+wuser+"&profile="+product.seller_id} className='text-black'>{product.seller_id} </Link> 
+                <Link to="/account" className='text-black'>{product.seller_id} </Link> 
             </div>
-            <button>Adauga in cos</button>
+            <button onClick={()=>{addToCart(product.id)}}>Adauga in cos</button>
         </div>
     </div>
   )

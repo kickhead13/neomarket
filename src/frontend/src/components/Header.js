@@ -11,7 +11,7 @@ function Header() {
                 </NavLink>
                 <div>
                     <ul id="navbar">
-                        <li><NavLink to="/layout/cart">Cart</NavLink></li>
+                        <li><NavLink to="/cart">Cart</NavLink></li>
                         <li><NavLink to="/anunt"><i className="fas fa-plus"></i></NavLink></li>
                     </ul>
                 </div>
