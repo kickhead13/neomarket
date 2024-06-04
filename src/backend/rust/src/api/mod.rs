@@ -64,7 +64,7 @@ pub async fn check_user_password(
     if String::from(&req.password_hash) == vect[0].password {
         actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
             &structures::ConfirmResponse {
-                confirm: "ok".to_string(),
+                confirm: vect[0].account_type.clone(),
             }
         )
     } else {
@@ -265,7 +265,7 @@ pub async fn send_email(
 
     match std::str::from_utf8(output.stderr.as_slice()) {
         Ok(err) => println!(" -> api/send_email : (){:?}()", err),
-        Err(_) => println!("..."),
+        Err(_) => println!(" x api/send_email..."),
     }
 
     actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
