@@ -2,6 +2,8 @@ import React from 'react'
 import "./styles/Chatstyles.css"
 import {useSearchParams} from "react-router-dom"
 import {useState, useEffect} from "react"
+import DocumentMeta from 'react-document-meta'
+import Helmet from 'react-helmet'
 
 const Chat = () => {
 
@@ -76,7 +78,14 @@ const sendMessage = async (searchParams, body) => {
   let host = window.location.hostname;
   const url = "http://" + host + ":8080/api/send_message?username1="+username1+"&username2="+username2+"&body="+body+"&tail=0";
   await fetch(url);
-}
+  setBody('test');
+} 
+  const meta = {
+    meta: {
+      httpEquiv: "Refresh",
+      content: "1"
+    }
+  }
 
   return (
     <>
