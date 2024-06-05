@@ -1,13 +1,14 @@
 import { Component } from "react";
 import { NavLink } from 'react-router-dom';
 import "./styles/Headerstyles.css";
+import nmimg from "./Assert/neomarket.jpg"
 
 function Header() {
     return (
         <>
             <nav >
                 <NavLink to="/layout" className="text-black">
-                    NeoMarket.
+                  <img src={nmimg} width="200"/>
                 </NavLink>
                 <div>
                     <ul id="navbar">

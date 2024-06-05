@@ -1,6 +1,7 @@
 import React, { useState, useRef }from 'react'
 import "./styles/Accountstyles.css"
 import Footer from "./Footer"
+import NavBar from "./Header.js"
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Account = () => {
@@ -82,6 +83,7 @@ const Account = () => {
   let puser = sp.get('profile');
   return (
    <>
+    <NavBar/>
    <div className='parent-container'>
       <div className="box-decoration">
         <div onClick={handleClick} style={{ cursor: "pointer" }}>

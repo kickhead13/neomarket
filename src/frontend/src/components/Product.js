@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { ShopContext } from './Context/ShopContext';
 import Productdisplay from './Productdisplay';
 import Footer from "./Footer"
+import NavBar from "./Header"
 import Comment from "./Comment/Comments"
 const Product = () => {
 
@@ -13,6 +14,7 @@ const Product = () => {
     
   return (
     <>
+    <NavBar/>
     <div>
       <Productdisplay product={product} />
       <Comment />

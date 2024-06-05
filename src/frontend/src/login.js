@@ -20,7 +20,7 @@ const LoginSignupPage = () => {
             .join("");
         let host = window.location.hostname;
         //host = "10.144.131.142";
-        let url = "http://" + host + ":8080/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
+        let url = "https://" + host + ":8080/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
         var compareTo;
         const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!api_data){

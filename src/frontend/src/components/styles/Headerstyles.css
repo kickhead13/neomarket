@@ -2,8 +2,8 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #41C9E2;
-    padding: 20px 80px;
+    background: #0026ff;
+    padding: 20px 20px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
   }
   #navbar {
@@ -28,6 +28,7 @@ nav {
 
   #navbar li a {
     text-decoration: none;
+    font-family: 'Sans Bold';
     font-size: 1.3rem;
     font-weight: 200;
     color:  #060606;
@@ -36,7 +37,7 @@ nav {
 
   #navbar li a:hover,
   #navbar li a.active {
-    color: #008DDA;
+    color: #ffffff;
   }
   
   #navbar li a:hover::after{
