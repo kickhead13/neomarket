@@ -5,15 +5,15 @@ const Footer = () => {
   return (
     <footer class="section-p1">
     <div class="col">
-        <h4><strong>Contact</strong></h4>
-       <p> Email: neomarketapp@gmail.com </p>
+        <h4><strong style= {{color: "#ffffff", paddingBottom: "0px"}}>Contact</strong></h4>
+       <h4><strong style =  {{color: "#ffffff", paddingBottom: "0px"}}> Email: neomarketapp@gmail.com</strong> </h4>
         
     </div>
  
 
     <div class="col">
-        <h4>My Account</h4>
-        <NavLink to="/anunt">Publica anunt</NavLink>
+        <h4><strong style = {{color: "#ffffff", paddingBottom: "0px"}}>My Account</strong></h4>
+        <NavLink to="/anunt"><strong style = {{color: "#ffffff", paddingBottom: "0px"}}>Publica anunt</strong></NavLink>
     </div>
     
 </footer>
