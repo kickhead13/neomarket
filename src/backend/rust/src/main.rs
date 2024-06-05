@@ -26,7 +26,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
 
         let mut lan_ip_str = format!("{:?}", lan_ip);
         let lan_ip = lan_ip_str.clone();
-        lan_ip_str.push_str(":8080");
+        lan_ip_str.push_str(":8443");
         let mut https = format!("https://");
         https.push_str(&format!("{:?}", lan_ip));
         println!("api binding to {}...", lan_ip_str);
