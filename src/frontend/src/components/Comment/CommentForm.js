@@ -8,7 +8,7 @@ const CommentForm = ({submitLabel, initialText = ""}) => {
     return (
        <>
        <div className='commentform'>
-      <textarea
+      <input
         className="comment-form-textarea"
         value={text}
         onChange={(e) => setText(e.target.value)}

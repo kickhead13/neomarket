@@ -1,7 +1,7 @@
 import React, { useState, useRef }from 'react'
 import "./styles/Accountstyles.css"
 import Footer from "./Footer"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 const Account = () => {
   const [image, setImage] = useState(null);
@@ -73,10 +73,13 @@ const Account = () => {
     hiddenFileInput.current.click();
   };
 
-  const handleChatButtonClick = () => {
-    navigate('/chat'); // Navigate to the "/chat" route
-};
+  const handleChatButtonClick = (other, user) => {
+    navigate('/chat?user='+user+'&other='+other); // Navigate to the "/chat" route
+  };
 
+  let [sp, setSp] = useSearchParams();
+  let wuser = sp.get('user');
+  let puser = sp.get('profile');
   return (
    <>
    <div className='parent-container'>
@@ -98,8 +101,8 @@ const Account = () => {
         </div>
       </div>
      <div className='elements-container'>
-      <p>Marinel</p>
-      <button onClick={handleChatButtonClick}> Chat</button>
+      <p>{puser}</p>
+      <button onClick={() => handleChatButtonClick(puser, wuser)}> Chat</button>
      </div>
      </div>
      <Footer />

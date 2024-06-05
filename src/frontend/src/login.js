@@ -34,7 +34,7 @@ const LoginSignupPage = () => {
         if(!compareTo){
             return false;
         }
-        setLstatus(compareTo === "ok" ? 'true' : 'false');
+        //setLstatus(compareTo === "ok" ? 'true' : 'false');
         return (compareTo === "ok");
     }
     

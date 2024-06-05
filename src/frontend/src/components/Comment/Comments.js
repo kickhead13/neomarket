@@ -56,15 +56,13 @@ const Comments = () => {
       <>
         <div className="comments">
           <h3 className="comments-title">Comments</h3>
+          {rootComments.map((rootComments) => (
+            <Comment key={rootComments.id} comment={rootComments}/>
+          ))}
           <div className="comment-form-title">Write comment</div>
           <CommentForm submitLabel="Send" />
           <div className="comments-container">
-          {rootComments.map((rootComments) => (
-         <Comment
-         key={rootComments.id}
-         comment={rootComments}
-         />
-        ))}
+          
           </div>
         </div>
         </>
