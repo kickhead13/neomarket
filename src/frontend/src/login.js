@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 const LoginSignupPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [country, setCountry] = useState('');
+    const [region, setRegion] = useState('');
+    const [city, setCity] = useState('');
+    const [name, setName] = useState('');
     const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [isLoginFormVisible, setIsLoginFormVisible] = useState(true);
+
+    const [lstatus, setLstatus] = useState('waiting');
+    //const [credentials, setCredentials] = useState(false);
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
     
@@ -20,7 +26,7 @@ const LoginSignupPage = () => {
             .join("");
         let host = window.location.hostname;
         //host = "10.144.131.142";
-        let url = "http://" + host + ":8080/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
+        let url = "https://" + host + ":8443/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
         var compareTo;
         const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!api_data){
@@ -31,16 +37,22 @@ const LoginSignupPage = () => {
             return false;
         }
         compareTo = data['confirm'];
+		console.log(compareTo);
         if(!compareTo){
             return false;
         }
-        //setLstatus(compareTo === "ok" ? 'true' : 'false');
-        return (compareTo === "ok");
+        setLstatus(compareTo === "nok" ? 'false' : 'true');
+		if(compareTo === "nok") {
+            return false;
+		}
+		document.cookie="user=" + name + "; path=/";
+		document.cookie="accountType=" + compareTo + "; path=/";
+        return true;
     }
     
     async function tryRegister(name, password, email){
         let host = window.location.hostname;
-        let url = "http://" + host + ":8080/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
+        let url = "https://" + host + ":8443/api/sign_up?username=" + name + "&password=" + password + "&email=" + email;
         var compareTo;
         const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!resp){
@@ -67,7 +79,7 @@ const LoginSignupPage = () => {
         }
         if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
             setEmailError('Please enter a valid email');
-            return;
+            //return;
         }
         if (password === '') {
             setPasswordError('Please enter a password');
@@ -77,13 +89,22 @@ const LoginSignupPage = () => {
             setPasswordError('The password must be 8 characters or longer');
             return;
         }
-
+		console.log("Test");
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
-        navigate('/layout'); // Navigate to HomePage.js
-
+        let check = tryAuth(email, password);
+        //while(lstatus === 'waiting') {}
+        check.then(val => {
+          if(val === true) {
+            console.log(check);
+            navigate('/layout?user=' + email); // Navigate to HomePage.js
+          } else {
+            setPasswordError('Invalid credentials');
+          }
+        }
+        ).catch(err => console.log(err));
         // Hide the login form
-        setIsLoginFormVisible(false);
+        //setIsLoginFormVisible(false);
     };
 
     const onSignupButtonClick = () => {
@@ -111,9 +132,16 @@ const LoginSignupPage = () => {
 
         // Sign-up logic here...
         // If successful, redirect the user to HomePage.js
-        navigate('/email'); 
+        if(tryRegister(name, password, email))
+        {
+          navigate('/email');
+        }
+        else
+        {
+            setEmailError('Register failed, internal error');
+        }
         // Hide the signup form
-        setIsLoginFormVisible(true);
+        //setIsLoginFormVisible(true);
     };
 
     return (
@@ -192,8 +220,8 @@ const LoginSignupPage = () => {
                             type="name"
                             placeholder="Enter your name"
                             className="inputBox"
-                            value={password}
-                            
+                            value={name}
+                            onChange={(ev) => setName(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
@@ -203,8 +231,8 @@ const LoginSignupPage = () => {
                             type="country"
                             placeholder="Enter your country"
                             className="inputBox"
-                            value={password}
-                           
+                            value={country}
+                            onChange={(ev) => setCountry(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
@@ -214,8 +242,8 @@ const LoginSignupPage = () => {
                             type="region"
                             placeholder="Enter your region"
                             className="inputBox"
-                            value={password}
-                           
+                            value={region}
+                            onChange={(ev)=>setRegion(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
@@ -225,8 +253,8 @@ const LoginSignupPage = () => {
                             type="city"
                             placeholder="Enter your city"
                             className="inputBox"
-                            value={password}
-                            
+                            value={city}
+                            onChange={(ev)=>setCity(ev.target.value)}
                         />
                         <label className="errorLabel">{passwordError}</label>
                     </div>
