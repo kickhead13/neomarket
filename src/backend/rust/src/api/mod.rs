@@ -1,6 +1,6 @@
 #![allow(dead_code)]
 use actix_web;
-
+use rand::{distributions::Alphanumeric, Rng};
 use crate::environment;
 use crate::db;
 use crate::encryption;
@@ -62,9 +62,14 @@ pub async fn check_user_password(
     println!(" -> api/check_user_password : {}", (&req.username).to_string());
  
     if String::from(&req.password_hash) == vect[0].password {
+        let token: String = rand::thread_rng()
+        .sample_iter(&Alphanumeric)
+        .take(16)
+        .map(char::from)
+        .collect();
         actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
             &structures::ConfirmResponse {
-                confirm: vect[0].account_type.clone(),
+                confirm: vect[0].account_type.clone() + ";" + &token,
             }
         )
     } else {
