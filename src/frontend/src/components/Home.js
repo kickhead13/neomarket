@@ -12,13 +12,15 @@ function Home() {
         <div className="input-wrapper">
           <FaSearch id="search-icon" />
           <input placeholder="Type to search..." />
-<input name="iHaine" type="checkbox"/>
+<input className="chck" name="iHaine" type="checkbox"/>
         <label for="iHaine">Haine</label>
-        <input name="iElectronice" type="checkbox"/>
+        <input className="chck" name="iElectronice" type="checkbox"/>
         <label for="iElectronice">Electronice</label>
-        <input name="iMobila" type="checkbox"/>
+        <input className="chck" name="iMobila" type="checkbox"/>
         <label for="iMobila">Mobila</label>
-        </div>
+          
+        <input type="button" value="Search" style={{width:"10%", paddingTop: "5px", marginRight:"0px", marginLeft: "10%", fontFamily:"sans", fontSize: "20px"}}/>
+    </div>
         
       </div>
     

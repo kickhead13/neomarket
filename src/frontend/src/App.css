@@ -48,6 +48,7 @@ a {
   align-items: center;
   justify-content: center;
   height: 260px;
+  width: 100px;
 }
 
 .inputContainer {
