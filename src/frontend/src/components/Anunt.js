@@ -16,7 +16,7 @@ const Anunt = () => {
   async function tryNewProd() {
     console.log('damn');
         let host = window.location.hostname;
-        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=L&id=1&seller=" + getCookie('user');
+        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=L&id=" + 1 +"&seller=" + getCookie('user');
         var compareTo;
         const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!resp){

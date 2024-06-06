@@ -22,6 +22,13 @@ pub struct FetchProdsCat{
 }
 
 #[derive(Deserialize, Serialize, Debug)]
+pub struct FetchSpecProd{
+    pub category: String,
+    pub code: String
+}
+
+
+#[derive(Deserialize, Serialize, Debug)]
 pub struct MessageList {
     pub list: Vec<db::structures::Message>
 }

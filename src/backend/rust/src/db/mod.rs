@@ -149,8 +149,9 @@ pub async fn fetch_prods(
     match potential_hash {
         Ok(hashmap) => {
             let mut ret_vec = Vec::<structures::Prod>::new();
-            for (key, value) in hashmap.into_iter() {
+            for (key, mut value) in hashmap.into_iter() {
                 println!("db:: {:?}", value.clone());
+                value.id = format!("{}+{}", value.category.clone(), key);
                 ret_vec.push(value.clone());
             }
             ret_vec
@@ -158,6 +159,31 @@ pub async fn fetch_prods(
         Err(error) => Vec::<structures::Prod>::new()
     }
 
+
+}
+
+pub async fn fetch_spec_prod(
+    category: String,
+    code: String,
+    db: firebase_rs::Firebase
+) -> structures::Prod {
+
+    let potential_prod = db.at(PROD_COLLECTION_NAME)
+        .at(&category)
+        .at(&code)
+        .get::<structures::Prod>()
+        .await;
+
+    match potential_prod {
+        Ok(prod) => prod,
+        Err(_) => structures::Prod::new("".to_string(),
+            "".to_string(),
+            "".to_string(),
+            "".to_string(),
+            "".to_string(),   
+            "".to_string()
+            )
+    }
 
 }
 

@@ -255,6 +255,29 @@ pub async fn fetch_prods_from_cat(
     )
 }
 
+#[actix_web::get("/api/fetch_spec_prod")]
+pub async fn fetch_spec_prod(
+    req: actix_web::web::Query<structures::FetchSpecProd>
+) -> impl actix_web::Responder {
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let res = db::fetch_spec_prod(
+        (&req.category).to_string(),
+        (&req.code).to_string(),
+        fire_db
+    ).await;
+
+    println!(" -> api/fetch_prods_from_cat : {}", (&req.category).to_string());
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &res
+    )
+}
+
 #[actix_web::get("/api/send_email")]
 pub async fn send_email(
     req: actix_web::web::Query<structures::Email>

@@ -45,6 +45,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .service(api::fetch_prods_from_cat)
                 .service(api::send_email)
                 .service(api::check_user_password)
+                .service(api::fetch_spec_prod)
             })
             .bind_openssl(lan_ip_str, builder)?
             .workers(2)

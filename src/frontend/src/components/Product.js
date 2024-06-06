@@ -10,8 +10,8 @@ const Product = () => {
 
     const {all_product}= useContext(ShopContext);
     const {productId} = useParams();
-    const product = all_product.find((e)=> e.id === Number(productId));
-    
+    const product = all_product[Number(productId)-1];//.find((e)=> e.id === Number(productId));
+    console.log(all_product[Number(productId)]);
   return (
     <>
     <NavBar/>
