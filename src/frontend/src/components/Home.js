@@ -52,9 +52,9 @@ function Home() {
         <div className="input-wrapper">
           <FaSearch id="search-icon" />
           <input placeholder="Type to search..." id="searchText" />
-        <input className="chck" name="categ" value="Haine" type="checkbox" id="chkHaine"/>
+        <input className="chck" name="categ" value="Haine" type="checkbox"/>
         <label for="iHaine">Haine</label>
-        <input className="chck" name="categ" value="Electronice" type="checkbox" id="chkHaine"/>
+        <input className="chck" name="categ" value="Electronice" type="checkbox"/>
         <label for="iElectronice">Electronice</label>
         <input className="chck" name="categ" value="Mobila" type="checkbox"/>
         <label for="iMobila">Mobila</label>
