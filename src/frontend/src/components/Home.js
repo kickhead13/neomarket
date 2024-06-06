@@ -12,8 +12,16 @@ function Home() {
         <div className="input-wrapper">
           <FaSearch id="search-icon" />
           <input placeholder="Type to search..." />
+<input name="iHaine" type="checkbox"/>
+        <label for="iHaine">Haine</label>
+        <input name="iElectronice" type="checkbox"/>
+        <label for="iElectronice">Electronice</label>
+        <input name="iMobila" type="checkbox"/>
+        <label for="iMobila">Mobila</label>
         </div>
-     </div>
+        
+      </div>
+    
 
      <div className="popular">
             {data_product.map((item,i)=>{
