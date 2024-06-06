@@ -78,6 +78,9 @@ const Account = () => {
   const handleChatButtonClick = () => {
     navigate('/chat'); // Navigate to the "/chat" route
 };
+  
+  const pfp = require.context("./pfp", true);
+  const def = pfp("./null")
 
   return (
    <>

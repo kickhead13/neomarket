@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import "./styles/Productdisplaystyles.css"
-import { Link, useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { ShopContext } from './Context/ShopContext';
 
 const Productdisplay = (props) => {
@@ -8,6 +8,7 @@ const Productdisplay = (props) => {
     const {addToCart} = useContext(ShopContext);
   const [sp, setSp] = useSearchParams();
   const wuser = sp.get('user');
+  const navigate=useNavigate();
   return (
     <div className='productdisplay'>
 
@@ -28,7 +29,7 @@ const Productdisplay = (props) => {
             <div className='productdisplay-right-seller'>
                  <Link to={"/account?user="+wuser+"&profile="+product.seller_id} className='text-black'>{product.seller_id} </Link> 
             </div>
-            <button onClick={()=>{addToCart(product.id)}}>Adauga in cos</button>
+            <button onClick={()=>{navigate("/chat?user=null&other="+product.seller_id)}}>Chat with seller</button>
         </div>
     </div>
   )

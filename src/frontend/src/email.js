@@ -11,7 +11,7 @@ const Email = () => {
   };
   return (
     <>
-      <div className="mainContainer">
+    <div className="mainContainer">
     <div className="titleContainer">
                         <div>Confirmare Email</div>
                     </div>

@@ -32,7 +32,7 @@
   .comment-form-button {
     font-size: 18px;
     padding: 8px 16px;
-    background: rgb(59, 130, 246);
+    background: #0026FF;
     border-radius: 8px;
     color: white;
     outline: none;
@@ -46,7 +46,7 @@
   
   .comment-form-button:hover:enabled {
     cursor: pointer;
-    background: rgb(37, 99, 235);
+    background: #0733FF;
   }
   
   .comment-form-button:disabled {

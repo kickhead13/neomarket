@@ -4,6 +4,7 @@ import {useSearchParams} from "react-router-dom"
 import {useState, useEffect} from "react"
 import DocumentMeta from 'react-document-meta'
 import Helmet from 'react-helmet'
+import getCookie from './Cookies/Cookies.js'
 
 const Chat = () => {
 
@@ -12,10 +13,11 @@ const Chat = () => {
   const [body, setBody] = useState('');
   let texts = [];
   const [clock, setClock] = useState(0);
+  const [messages, setMessages] = useState([]);
 
 async function getTexts(user, other) {
   let host = window.location.hostname;
-  const url = "http://" + host + ":8080/api/fetch_messages?username1="+user+"&username2="+other+"&body=&tail=0";
+  const url = "https://" + host + ":8443/api/fetch_messages?username1="+user+"&username2="+other+"&body=&tail=0";
   let ffetch = await fetch(url);
   let json = await ffetch.json();
   let list = json.list;
@@ -55,9 +57,9 @@ const GenConvo = (user, other) => {
           llist.sort((l1,l2) => l1.time.localeCompare(l2.time)).map((item, i) => {
             console.log(item.message_body);
             if(item.sender === user) {
-              return <div className='mesaj' style={{background: '#41C9E2',textAlign: 'right'}}>{item.message_body}</div>
+              return <div className='mesaj' style={{background: '#0026ff',textAlign: 'right', color:'#ffffff',fontFamily: 'Sans'}}><b>{item.message_body}</b></div>
             } else {
-              return <div className='mesaj'>{item.sender}: {item.message_body}</div>
+              return <div className='mesaj' style={{fontFamily: 'Sans'}}><b>{item.sender}</b>: {item.message_body}</div>
             }
           })
       }
@@ -72,13 +74,14 @@ const GenConvo = (user, other) => {
 
 const sendMessage = async (searchParams, body) => {
   console.log('test');
-  const username1 = searchParams.get('user');
+  const username1 = getCookie('user');
   const username2 = searchParams.get('other');
   console.log(body);
   let host = window.location.hostname;
-  const url = "http://" + host + ":8080/api/send_message?username1="+username1+"&username2="+username2+"&body="+body+"&tail=0";
+  const url = "https://" + host + ":8443/api/send_message?username1="+username1+"&username2="+username2+"&body="+body+"&tail=0";
   await fetch(url);
   setBody('test');
+  setMessages([...messages, body]);
 } 
   const meta = {
     meta: {
@@ -89,7 +92,7 @@ const sendMessage = async (searchParams, body) => {
 
   return (
     <>
-    {GenConvo(searchParams.get('user'), searchParams.get('other'))}
+    {GenConvo(getCookie('user'), searchParams.get('other'))}
     <div className='typing' >
       <input  className="mesaj" placeholder="Scrie un mesaj" onChange={event => {setBody(event.target.value)}} value={body} />
       <button className="trimite" type="submit" onClick={()=>sendMessage(searchParams, body)}>Send</button>

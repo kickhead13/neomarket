@@ -63,10 +63,10 @@ pub async fn check_user_password(
  
     if String::from(&req.password_hash) == vect[0].password {
         let token: String = rand::thread_rng()
-        .sample_iter(&Alphanumeric)
-        .take(16)
-        .map(char::from)
-        .collect();
+            .sample_iter(&Alphanumeric)
+            .take(16)
+            .map(char::from)
+            .collect();
         actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
             &structures::ConfirmResponse {
                 confirm: vect[0].account_type.clone() + ";" + &token,
@@ -89,7 +89,9 @@ pub async fn sign_user_up(
     let username = &req.username;
     let password = encryption::encrypt_password(&req.password);
     let email = &req.email;
-
+    
+    println!(" --> api/sign_up");
+    
     let user: db::structures::User = db::structures::User::new_sign_up_user(
         username.to_string(),
         password,

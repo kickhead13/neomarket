@@ -1,9 +1,11 @@
 import React from 'react'
 import "./styles/Anuntstyles.css"
 import Footer from "./Footer"
+import Header from "./Header.js"
 const Anunt = () => {
   return (
     <>
+    <Header />
     <div className='wrapper'>
     
       

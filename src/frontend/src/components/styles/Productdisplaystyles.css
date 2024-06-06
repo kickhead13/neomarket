@@ -55,10 +55,12 @@
     outline: none;
     cursor: pointer;
     border-radius: 10px;
+    background-color: #0026FF;
+    color: #ffffff;
 }
 
 .productdisplay-right button:hover{
-    background-color: #008DDA;
+    background-color: #0765FF;
     transition: 0.7s;
 }
 

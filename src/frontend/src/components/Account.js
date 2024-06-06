@@ -3,6 +3,7 @@ import "./styles/Accountstyles.css"
 import Footer from "./Footer"
 import NavBar from "./Header.js"
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import getCookie from "./Cookies/Cookies.js"
 
 const Account = () => {
   const [image, setImage] = useState(null);
@@ -81,30 +82,34 @@ const Account = () => {
   let [sp, setSp] = useSearchParams();
   let wuser = sp.get('user');
   let puser = sp.get('profile');
+
+
+  const images = require.context("./pfp", true);
+  let def = images("./null.jpg");
+  getCookie('user');
+  try {
+    console.log(getCookie('user'));
+    def = images("./" + puser + ".jpg");
+  } catch(error) {
+  }
+  console.log(def);
   return (
    <>
     <NavBar/>
    <div className='parent-container'>
       <div className="box-decoration">
-        <div onClick={handleClick} style={{ cursor: "pointer" }}>
-          {image ? (
-            <img src={URL.createObjectURL(image)} alt="upload image" className="img-display-after" />
-          ) : (
-            <img src="./photo.png" alt="upload image" className="img-display-before" />
-          )}
-
-          <input
-            id="image-upload-input"
-            type="file"
-            onChange={handleImageChange}
-            ref={hiddenFileInput}
-            style={{ display: "none" }}
-          />
-        </div>
-      </div>
+        
+         {
+            <img src={def} alt = "nah" className="img-display-before" style={{width: "300px", height: "300px"}}/>
+          }
+              </div>
      <div className='elements-container'>
       <p>{puser}</p>
       <button onClick={() => handleChatButtonClick(puser, wuser)}> Chat</button>
+      {
+          getCookie('user') === puser ? <button style={{marginTop: "10px"}}>Change Image</button> : <p></p>
+      }
+
      </div>
      </div>
      <Footer />

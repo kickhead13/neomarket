@@ -12,8 +12,8 @@ function Header() {
                 </NavLink>
                 <div>
                     <ul id="navbar">
-                        <li><NavLink to="/cart">Cart</NavLink></li>
-                        <li><NavLink to="/anunt"><i className="fas fa-plus"></i></NavLink></li>
+                        <li><NavLink to="/cart"><strong style={{fontFamily: "Sans", color:"#ffffff"}}><b>Cart</b></strong></NavLink></li>
+                        <li><NavLink to="/anunt"><i className="fas fa-plus" style={{color:"#ffffff"}}></i></NavLink></li>
                     </ul>
                 </div>
             </nav>

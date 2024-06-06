@@ -31,7 +31,7 @@ nav {
     font-family: 'Sans Bold';
     font-size: 1.3rem;
     font-weight: 200;
-    color:  #060606;
+    color:  #ffffff;
     transition: 0.3s ease-in-out;
   }
 
@@ -44,7 +44,7 @@ nav {
     content: "";
     width: 30%;
     height: 2px;
-    background: #008DDA;
+    background: #ffffff;
     position: absolute;
     bottom: -4px;
     left: 20px;

@@ -27,6 +27,7 @@ const LoginSignupPage = () => {
         let host = window.location.hostname;
         //host = "10.144.131.142";
         let url = "https://" + host + ":8443/api/check_user_password?username=" + name + "&password_hash=" + hashHex;
+        console.log(url);
         var compareTo;
         const api_data = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!api_data){
@@ -66,7 +67,7 @@ const LoginSignupPage = () => {
             return false;
         }
         console.log(data);
-        compareTo = data['response'];
+        compareTo = data['confirm'];
         return (compareTo === "ok");
     }
     
@@ -100,7 +101,7 @@ const LoginSignupPage = () => {
         check.then(val => {
           if(val === true) {
             console.log(check);
-            navigate('/layout?user=' + email); // Navigate to HomePage.js
+            navigate('/layout'); // Navigate to HomePage.js
           } else {
             setPasswordError('Invalid credentials');
           }
@@ -135,14 +136,16 @@ const LoginSignupPage = () => {
 
         // Sign-up logic here...
         // If successful, redirect the user to HomePage.js
-        if(tryRegister(name, password, email))
-        {
-          navigate('/email');
-        }
-        else
-        {
-            setEmailError('Register failed, internal error');
-        }
+        let check = tryRegister(name, password, email);
+        check.then( val => {
+          if(val===true){
+            navigate('/email?email=' + email +'&password=' + password + '&name='+name);
+          }
+          else
+          {
+              setEmailError('Register failed, internal error');
+          }
+        }).catch(err=>console.log(err));
         // Hide the signup form
         //setIsLoginFormVisible(true);
     };
@@ -157,8 +160,8 @@ const LoginSignupPage = () => {
                     <br />
                     <div className="inputContainer">
                         <input
-                            type="email"
-                            placeholder="Enter your email here"
+                            type="name"
+                            placeholder="Enter your username here"
                             className="inputBox"
                             value={email}
                             onChange={(ev) => setEmail(ev.target.value)}
@@ -221,7 +224,7 @@ const LoginSignupPage = () => {
                     <div className="inputContainer">
                         <input
                             type="name"
-                            placeholder="Enter your name"
+                            placeholder="Enter your username"
                             className="inputBox"
                             value={name}
                             onChange={(ev) => setName(ev.target.value)}
