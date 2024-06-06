@@ -37,16 +37,19 @@ const LoginSignupPage = () => {
             return false;
         }
         compareTo = data['confirm'];
-		console.log(compareTo);
+        console.log(compareTo);
         if(!compareTo){
             return false;
         }
         setLstatus(compareTo === "nok" ? 'false' : 'true');
-		if(compareTo === "nok") {
+        if(compareTo === "nok") {
             return false;
-		}
-		document.cookie="user=" + name + "; path=/";
-		document.cookie="accountType=" + compareTo + "; path=/";
+        }
+        let accountType = compareTo.split(";")[0];
+        let authToken = compareTo.split(";")[1];
+        document.cookie="user=" + name + "; path=/";
+        document.cookie="accountType=" + compareTo + "; path=/";
+        document.cookie="token=" + authToken + "; path=/";
         return true;
     }
     
@@ -89,7 +92,7 @@ const LoginSignupPage = () => {
             setPasswordError('The password must be 8 characters or longer');
             return;
         }
-		console.log("Test");
+        console.log("Test");
         // Authentication logic for login here...
         // If successful, redirect the user to HomePage.js
         let check = tryAuth(email, password);

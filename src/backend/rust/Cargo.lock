@@ -1533,6 +1533,7 @@ dependencies = [
  "firebase-rs",
  "local-ip-address",
  "openssl",
+ "rand",
  "serde",
  "serde_json",
  "sha256",
