@@ -10,6 +10,7 @@ pub mod utils;
 pub const USERS_COLLECTION_NAME: &str = "users";
 pub const MESSAGE_COLLECTION_NAME: &str = "messages";
 pub const PROD_COLLECTION_NAME: &str = "products";
+pub const COMM_COLLECTION_NAME: &str = "comments";
 
 #[derive(Deserialize, Serialize, Debug)]
 struct Response {
@@ -187,3 +188,50 @@ pub async fn fetch_spec_prod(
 
 }
 
+pub async fn send_comm(
+    prod: structures::Comm,
+    db: firebase_rs::Firebase
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+
+
+    println!("{:?}", &format!(
+        " {} {} {}",
+        &prod.user,
+        &prod.body,
+        &prod.post
+    ));
+
+    let resp = db.at(COMM_COLLECTION_NAME)
+            .at(&prod.post)
+            .set(&prod)
+            .await;
+    println!("{:?}", resp);
+    Ok(())
+}
+
+pub async fn fetch_comms(
+    post: String,
+    db: firebase_rs::Firebase
+) -> Vec<structures::Comm> {
+
+    let potential_hash = db.at(COMM_COLLECTION_NAME)
+        .at(&post)
+        .get::<HashMap<String,structures::Comm>>()
+        .await;
+
+    println!("(db) {}", &post);
+
+    match potential_hash {
+        Ok(hashmap) => {
+            let mut ret_vec = Vec::<structures::Comm>::new();
+            for (key, mut value) in hashmap.into_iter() {
+                println!("db:: {:?}", value.clone());
+                ret_vec.push(value.clone());
+            }
+            ret_vec
+        },
+        Err(error) => Vec::<structures::Comm>::new()
+    }
+
+
+}

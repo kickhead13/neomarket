@@ -5,6 +5,7 @@ import nmimg from "./Assert/neomarket.jpg"
 import getCookie from "./Cookies/Cookies.js"
 
 function Header() {
+    console.log(nmimg);
     return (
         <>
             <nav >

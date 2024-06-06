@@ -34,7 +34,7 @@ function Home() {
     const [plist, setPlist] = useState([]);
     const updateSearch = () => {
         var optiuni = document.getElementsByName('categ');
-        var categoriiVec=["test"];
+        var categoriiVec=[];
         for (var i=0; i<optiuni.length; i++) {
             if(optiuni[i].checked) categoriiVec.push(optiuni[i].value);
         }
@@ -42,7 +42,7 @@ function Home() {
         data => setPlist(data));
     }
   useEffect(() => {
-    getItems(["test"]).then(
+    getItems([]).then(
     data => setPlist(data));
   }, []);
   
