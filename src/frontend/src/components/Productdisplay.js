@@ -27,9 +27,9 @@ const Productdisplay = (props) => {
                 {product.description}
             </div>
             <div className='productdisplay-right-seller'>
-                 <Link to={"/account?user="+wuser+"&profile="+product.seller_id} className='text-black'>{product.seller_id} </Link> 
+                 <Link to={"/account?user="+wuser+"&profile="+product.seller} className='text-black'>{product.seller} </Link> 
             </div>
-            <button onClick={()=>{navigate("/chat?user=null&other="+product.seller_id)}}>Chat with seller</button>
+            <button onClick={()=>{navigate("/chat?user=null&other="+product.seller)}}>Chat with seller</button>
         </div>
     </div>
   )
