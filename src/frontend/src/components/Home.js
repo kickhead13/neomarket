@@ -25,8 +25,8 @@ async function getItems(cats){
     let products=data['list'];
     let productsSection=document.getElementById("produse");
     products.map((item,i)=>{
-				if(item.image=="")
-					item.image=missimg;
+				if(item.img=="L")
+					item.img=missimg;
                 data_products.push(item);
             })
     }
@@ -69,7 +69,7 @@ function Home() {
     
 
      <div className="popular" id="produse">
-            {plist.map((item,i)=> <Item key={i} id={item.id} title={item.title} image={item.image} price={item.price} link={item.id}/>)}
+            {plist.map((item,i)=> <Item key={i} id={item.id} title={item.title} image={item.img} price={item.price} link={item.id}/>)}
       </div>
     </>
   );
