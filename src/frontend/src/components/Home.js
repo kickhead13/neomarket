@@ -8,7 +8,7 @@ import missimg from "./Assert/missing_s.png"
 
 let host = window.location.hostname;
 let apiUrl = "https://" + host + ":8443/api/fetch_prods_from_cat?category=";
-async function getItems(cats){
+async function getItems(cats, searchText){
     var data_products=[];
     var api_data;
     var data;
@@ -25,9 +25,10 @@ async function getItems(cats){
     let products=data['list'];
     let productsSection=document.getElementById("produse");
     products.map((item,i)=>{
-				if(item.img=="L")
-					item.img=missimg;
-                data_products.push(item);
+                if(item.img=="L")
+                    item.img=missimg;
+                if(searchText==="" || item.title.toLowerCase().includes(searchText.toLowerCase()))
+                    data_products.push(item);
             })
     }
     return data_products;
@@ -41,7 +42,8 @@ function Home() {
         for (var i=0; i<optiuni.length; i++) {
             if(optiuni[i].checked) categoriiVec.push(optiuni[i].value);
         }
-        getItems(categoriiVec).then(
+        var searchText=document.getElementById("searchText").value;
+        getItems(categoriiVec, searchText).then(
         data => setPlist(data));
     }
   useEffect(() => {
