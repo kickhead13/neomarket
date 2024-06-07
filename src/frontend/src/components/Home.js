@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Item from "./Item"
 import React, { createContext } from 'react';
 import { renderToString } from 'react-dom/server';
+import missimg from "./Assert/missing_s.png"
 
 let host = window.location.hostname;
 let apiUrl = "https://" + host + ":8443/api/fetch_prods_from_cat?category=";
@@ -24,6 +25,8 @@ async function getItems(cats){
     let products=data['list'];
     let productsSection=document.getElementById("produse");
     products.map((item,i)=>{
+				if(item.image=="")
+					item.image=missimg;
                 data_products.push(item);
             })
     }
