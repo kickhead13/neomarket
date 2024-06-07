@@ -112,3 +112,24 @@ impl Prod {
         }
     }
 }
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Comm {
+    pub user: String,
+    pub body: String,
+    pub post: String,
+}
+
+impl Comm {
+    pub fn new (
+        user: String,
+        body: String,
+        post: String,
+    ) -> Self {
+        Self {
+            user: user,
+            body: body,
+            post: post,
+        }
+    }
+}

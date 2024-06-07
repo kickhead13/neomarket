@@ -11,11 +11,13 @@ const Anunt = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
+  const [image, setImage] = useState();
   const navigate=useNavigate();
 
   async function tryNewProd() {
     console.log('damn');
         let host = window.location.hostname;
+        console.log(image);
         let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=L&id=" + 1 +"&seller=" + getCookie('user');
         var compareTo;
         const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
@@ -71,7 +73,7 @@ const Anunt = () => {
         
         <div className='label-input-container'>
             
-            <input type="file" id="poze" name="poze" />
+            <input type="file" id="poze" value={image} onChange={(ev) => setImage(ev.target.value)} name="poze" />
         </div>
         
         <div className='label-input-container'>

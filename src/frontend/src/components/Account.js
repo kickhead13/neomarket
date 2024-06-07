@@ -15,7 +15,20 @@ const Account = () => {
     const imgname = event.target.files[0].name;
     const reader = new FileReader();
     reader.readAsDataURL(file);
+    console.log("ansfsudusajf");
     reader.onloadend = () => {
+      // use a regex to remove data url part
+      const base64String = reader.result
+        .replace("data:", "")
+        .replace(/^.+,/, "");
+
+      // log to console
+      // logs wL2dvYWwgbW9yZ...
+      console.log(base64String);
+    };
+    reader.readAsDataURL(file);
+
+    /*reader.onloadend = () => {
       const img = new Image();
       img.src = reader.result;
       img.onload = () => {
@@ -36,14 +49,18 @@ const Account = () => {
               lastModified: Date.now(),
             });
 
-            console.log(file);
+            //console.log(file);
             setImage(file);
           },
           "image/jpeg",
           0.8
         );
       };
-    };
+    };*/
+    if(image) {
+      //console.log(URL.createObjectURL(image));
+      //console.log(image);
+    }
   };
 
   const handleUploadButtonClick = (file) => {
@@ -64,7 +81,7 @@ const Account = () => {
     fetch("https://trickuweb.com/upload/profile_pic", requestOptions)
       .then((response) => response.text())
       .then((result) => {
-        console.log(JSON.parse(result));
+        //console.log(JSON.parse(result));
         const profileurl = JSON.parse(result);
         setImage(profileurl.img_url);
       })
@@ -90,9 +107,19 @@ const Account = () => {
   try {
     console.log(getCookie('user'));
     def = images("./" + puser + ".jpg");
+    console.log(def);
   } catch(error) {
   }
   console.log(def);
+
+  const urll = (immage) => {
+
+    /*const reader = new FileReader();
+    console.log(URL.createObjectURL(immage));
+    reader.readAsDataURL(immage).then(data => console.log(data));
+    return URL.createObjectURL(immage);
+    */
+  }
   return (
    <>
     <NavBar/>

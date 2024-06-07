@@ -304,3 +304,63 @@ pub async fn send_email(
         }
     )
 }
+
+#[actix_web::get("/api/new_comm")]
+pub async fn new_comm(
+    req: actix_web::web::Query<db::structures::Comm>
+) -> impl actix_web::Responder {
+    
+    let comm = db::structures::Comm::new(
+        (&req.user).to_string(),
+        (&req.body).to_string(),
+        (&req.post).to_string(),
+    );
+
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let _ = db::send_comm(
+        comm,
+        fire_db
+    ).await;
+
+    println!(" -> api/new_prod : {} {} {}",
+        (&req.user).to_string(),
+        (&req.body).to_string(),
+        (&req.post).to_string(),
+    );
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
+    )
+}
+
+#[actix_web::get("/api/fetch_comms_from_post")]
+pub async fn fetch_comms_from_post(
+    req: actix_web::web::Query<structures::FetchPostComms>
+) -> impl actix_web::Responder {
+    println!("here");
+    let fire_db = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    println!("nothere");
+
+    let prod_list = db::fetch_comms(
+        (&req.post).to_string(),
+        fire_db
+    ).await;
+
+    println!(" -> api/fetch_prods_from_cat : {}", (&req.post).to_string());
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::CommList {
+            list: prod_list
+        }
+    )
+}

@@ -16,9 +16,19 @@ pub struct ProdList {
     pub list: Vec<db::structures::Prod>
 }
 
+#[derive(Serialize)]
+pub struct CommList {
+    pub list: Vec<db::structures::Comm>
+}
+
 #[derive(Deserialize, Serialize, Debug)]
 pub struct FetchProdsCat{
     pub category: String
+}
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct FetchPostComms{
+    pub post: String
 }
 
 #[derive(Deserialize, Serialize, Debug)]
