@@ -16,6 +16,10 @@ const LoginSignupPage = () => {
     const navigate = useNavigate(); 
     const superContext = "sha512 reallly really secret context";
     
+	function getRndInteger(min, max) {
+       return Math.floor(Math.random() * (max - min + 1) ) + min;
+    }
+	
     async function tryAuth(name, password){
         const encoder = new TextEncoder();
         const enc = encoder.encode(password + superContext); //trollface :3
@@ -68,7 +72,11 @@ const LoginSignupPage = () => {
         }
         console.log(data);
         compareTo = data['confirm'];
-        return (compareTo === "ok");
+        var secret=getRndInteger(100000, 999999);
+		document.cookie="regcode="+secret;
+		let url2 = "https://" + host + ":8443/api/send_email?email=" + email + "&code=" + secret;
+        const resp2 = await fetch(url2).catch(function(err){console.log(err);return false;});
+		return (compareTo === "ok");
     }
     
     const onLoginButtonClick = () => {
@@ -82,7 +90,7 @@ const LoginSignupPage = () => {
             return;
         }
         if (!/^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
-            setEmailError('Please enter a valid email');
+            //setEmailError('Please enter a valid email');
             //return;
         }
         if (password === '') {

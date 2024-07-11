@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import "./styles/Productdisplaystyles.css"
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { ShopContext } from './Context/ShopContext';
+import missimg from "./Assert/missing_s.png"
 
 const Productdisplay = (props) => {
     const {product} = props;
@@ -9,12 +10,13 @@ const Productdisplay = (props) => {
   const [sp, setSp] = useSearchParams();
   const wuser = sp.get('user');
   const navigate=useNavigate();
+  var image=(product.img!="L" ? product.img : missimg);
   return (
     <div className='productdisplay'>
 
         <div className='productdisplay-left'>
             <div className='productdisplay-img'>
-                <img className="productdisplay-main-img" src = {product.image} alt=""/>
+                <img className="productdisplay-main-img" src = {image} alt=""/>
             </div>
         </div>
 
