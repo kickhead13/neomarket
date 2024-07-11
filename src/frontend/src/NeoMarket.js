@@ -1,12 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import getCookie from "./components/Cookies/Cookies.js"
 
 const Home = (props) => {
   const { loggedIn, email } = props
   const navigate = useNavigate()
 
   const onButtonClick = () => {
-   navigate('/login')
+   /*if(getCookie('token')) navigate('/layout');
+   else*/ navigate('/login');
   }
 
   return (

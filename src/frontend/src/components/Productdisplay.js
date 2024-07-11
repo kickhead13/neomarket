@@ -10,13 +10,13 @@ const Productdisplay = (props) => {
   const [sp, setSp] = useSearchParams();
   const wuser = sp.get('user');
   const navigate=useNavigate();
-  product.image=(product.img!="L" ? product.img : missimg);
+  var image=(product.img!="L" ? product.img : missimg);
   return (
     <div className='productdisplay'>
 
         <div className='productdisplay-left'>
             <div className='productdisplay-img'>
-                <img className="productdisplay-main-img" src = {product.image} alt=""/>
+                <img className="productdisplay-main-img" src = {image} alt=""/>
             </div>
         </div>
 

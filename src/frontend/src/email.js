@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Email = () => {
   const [emailError, setEmailError] = useState(''); 
@@ -11,8 +11,8 @@ const Email = () => {
     const value = `; ${document.cookie}`;
     const parts = value.split(`; regcode=`);
     if (parts.length === 2) compareTo=parts.pop().split(';').shift();
-    if(compareTo === code && compareTo!="")
-        navigate('/layout'); 
+    if(compareTo === code && compareTo!=="")
+        navigate('/login'); 
     else setEmailError("Verification code incorrect or expired, try again.");
     
   };

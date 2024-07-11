@@ -47,7 +47,7 @@ function Home() {
         data => setPlist(data));
     }
   useEffect(() => {
-    getItems([]).then(
+    getItems(["Haine", "Electronice", "Mobile"], "").then(
     data => setPlist(data));
   }, []);
   
@@ -61,7 +61,7 @@ function Home() {
         <label for="iHaine">Haine</label>
         <input className="chck" name="categ" value="Electronice" type="checkbox"/>
         <label for="iElectronice">Electronice</label>
-        <input className="chck" name="categ" value="Mobila" type="checkbox"/>
+        <input className="chck" name="categ" value="Mobile" type="checkbox"/>
         <label for="iMobila">Mobila</label>
           
         <input type="button" value="Search" onClick={updateSearch} style={{width:"10%", paddingTop: "5px", marginRight:"0px", marginLeft: "10%", fontFamily:"sans", fontSize: "20px"}}/>
