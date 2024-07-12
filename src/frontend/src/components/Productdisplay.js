@@ -39,7 +39,10 @@ const Productdisplay = (props) => {
             <div className='productdisplay-right-seller'>
                  <Link to={"/account?user="+wuser+"&profile="+product.seller} className='text-black'>{product.seller} </Link> 
             </div>
+    <div>
             <button onClick={()=>{navigate("/chat?user=null&other="+product.seller)}}>Chat with seller</button>
+             <button onClick={()=>{navigate("/cart")}} style={{marginLeft: "1px"}}>Buy</button>
+            </div>
         </div>
     </div>
   )
