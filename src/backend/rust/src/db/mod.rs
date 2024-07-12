@@ -64,6 +64,24 @@ pub async fn get_user_by_username(
 
 }
 
+#[allow(dead_code)]
+pub async fn change_user_pic(
+    username: &str,
+    pic: &str,
+    db1: firebase_rs::Firebase,
+    db2: firebase_rs::Firebase,
+    db3: firebase_rs::Firebase
+) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+
+    let mut user = get_user_by_username(username, db1).await;
+    let _ = delete_user_by_username(username, db2).await;
+    user[0].profile_pic = pic.to_string();
+    println!("db/change_pic: {:?}", user[0].clone());
+    let _ = insert_user(user[0].clone(), db3).await;
+    Ok(())
+
+}
+
 pub async fn send_message(
     message: structures::Message,
     db: firebase_rs::Firebase

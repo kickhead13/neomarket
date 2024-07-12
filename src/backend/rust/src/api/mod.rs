@@ -10,12 +10,20 @@ mod structures;
 #[actix_web::get("/api/test")]
 pub async fn get_test(
     req: actix_web::web::Query<structures::TestParamsStruct>
-) -> impl actix_web::Responder {
-    
+) -> impl actix_web::Responder {  
     actix_web::HttpResponse::Ok().body(
         format!("{:?}{:?}", req.param1, req.param2)
     )
 
+}
+
+#[actix_web::post("/upload_image")]
+pub async fn upload_image(
+    req: actix_web::HttpRequest
+) -> impl actix_web::Responder {
+    println!("{:?}", req);
+    println!("dam");
+    actix_web::HttpResponse::Ok().body("ok")
 }
 
 #[actix_web::get("/api/fetch_user_password")]
@@ -111,6 +119,44 @@ pub async fn sign_user_up(
         }
     )
 
+}
+
+#[actix_web::get("/api/change_user_pic")]
+pub async fn change_user_pic(
+    req: actix_web::web::Query<structures::UserChangePic>
+) -> impl actix_web::Responder {
+
+    let username = &req.username;
+    let pic = &req.pic;
+
+    let fire_db1 = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let fire_db2 = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let fire_db3 = firebase_rs::Firebase::auth(
+        &environment::rtdb_url(),
+        &environment::auth_key()
+    ).unwrap();
+
+    let _ = db::change_user_pic(
+        username,
+        pic,
+        fire_db1,
+        fire_db2,
+        fire_db3
+    ).await;
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
+    )
 }
 
 #[actix_web::get("/api/delete_user")]
@@ -290,6 +336,33 @@ pub async fn send_email(
         .arg(environment::abs_path("../scripts/email_sender"))
         .arg(email)
         .arg(code)
+        .output()
+        .expect("Failed to execute command");
+
+    match std::str::from_utf8(output.stderr.as_slice()) {
+        Ok(err) => println!(" -> api/send_email : (){:?}()", err),
+        Err(_) => println!(" x api/send_email..."),
+    }
+
+    actix_web::HttpResponse::Ok().insert_header(("Access-Control-Allow-Origin", "*")).json(
+        &structures::ConfirmResponse {
+            confirm: "ok".to_string()
+        }
+    )
+}
+
+#[actix_web::get("/api/spec_email")]
+pub async fn spec_email(
+    req: actix_web::web::Query<structures::Email>
+) -> impl actix_web::Responder {
+
+    let email = &req.email;
+    let subject = &req.code;
+
+    let output = std::process::Command::new("python")
+        .arg(environment::abs_path("../scripts/other_emailer.py"))
+        .arg(email)
+        .arg(subject)
         .output()
         .expect("Failed to execute command");
 

@@ -55,6 +55,12 @@ pub struct UserParamsStruct {
 }
 
 #[derive(Deserialize, Serialize, Debug)]
+pub struct UserChangePic {
+    pub username: String,
+    pub pic: String
+}
+
+#[derive(Deserialize, Serialize, Debug)]
 pub struct CheckUserPassword {
     pub username: String, 
     pub password_hash: String

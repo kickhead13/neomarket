@@ -26,6 +26,8 @@ const CommentForm = ({submitLabel, pId, state, setState, initialText = ""}) => {
         }
         console.log(data);
         compareTo = data['confirm'];
+        let url2 = "https://" + host + ":8443/api/spec_email?email=ana.alexandru.gabriel@proton.me&code=New comment on your post https://www.neomarketapp.com/product/" + pId.pId;
+        const resp2 = await fetch(url2).catch(function(err){console.log(err);return false;});
         return (compareTo === "ok");
     }
     const sendComm = () =>  {
