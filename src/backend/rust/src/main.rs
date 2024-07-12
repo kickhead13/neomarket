@@ -48,6 +48,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
                 .service(api::fetch_spec_prod)
                 .service(api::new_comm)
                 .service(api::fetch_comms_from_post)
+                .service(api::upload_image)
+                .service(api::spec_email)
+                .service(api::change_user_pic)
             })
             .bind_openssl(lan_ip_str, builder)?
             .workers(8)
