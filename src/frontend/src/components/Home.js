@@ -5,9 +5,15 @@ import Item from "./Item"
 import React, { createContext } from 'react';
 import { renderToString } from 'react-dom/server';
 import missimg from "./Assert/missing_s.png"
-
+const images = require.context('../../prod_images', true);
+const imageList = images.keys().map(image => images(image));
 let host = window.location.hostname;
 let apiUrl = "https://" + host + ":8443/api/fetch_prods_from_cat?category=";
+function getImage(name)
+{
+	const result = imageList.filter((img) => img.includes(name));
+	return result[0];
+}
 async function getItems(cats, searchText){
     var data_products=[];
     var api_data;
@@ -27,6 +33,7 @@ async function getItems(cats, searchText){
     products.map((item,i)=>{
                 if(item.img=="L")
                     item.img=missimg;
+				else item.img=getImage(item.img);
                 if(searchText==="" || item.title.toLowerCase().includes(searchText.toLowerCase()))
                     data_products.push(item);
             })

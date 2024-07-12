@@ -18,3 +18,8 @@
     transform: scale(1.05);
     transition: 0.6s;
 }
+
+.thumbnail{
+	height: 250px;
+    width: auto;
+}
