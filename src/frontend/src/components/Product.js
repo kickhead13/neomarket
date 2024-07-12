@@ -30,19 +30,20 @@ async function getItems(pId){
 }
 
 const Product = () => {
-    
+   const [state, setState] = useState('');
     const {all_product}= useContext(ShopContext);
     const {productId} = useParams();
     const [product, setProduct] = useState('');
     useEffect(() => {getItems(productId).then(
       data => setProduct(data));
     }, []);//all_product[Number(productId)-1];//.find((e)=> e.id === Number(productId));
+  console.log("brooo " + productId);
   return (
     <>
     <NavBar/>
     <div>
       <Productdisplay product={product} />
-      <Comment />
+      <Comment pId={productId.toString()} state={state} setState={setState}/>
       <Footer />
     </div>
     </>

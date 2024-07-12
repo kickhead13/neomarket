@@ -60,7 +60,7 @@
   
   .comment {
     display: flex;
-    margin-bottom: 28px;
+    margin-bottom: 0.5%;
   }
   
   .comment-image-container {
@@ -73,6 +73,7 @@
   
   .comment-right-part {
     width: 100%;
+    padding-left: 1%;
   }
   
   .comment-content {

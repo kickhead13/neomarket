@@ -13,7 +13,7 @@ const Email = () => {
     <>
       <div className="mainContainer">
     <div className="titleContainer">
-                        <div>Confirmare Email</div>
+                        <div>E-mail confirmation</div>
                     </div>
                     <br />
                     <div className="inputContainer">
@@ -36,7 +36,7 @@ const Email = () => {
                     </div>
                     <br />
                     <div className="sign">
-                       Verifica-ti emailul si introdu codul primit.
+                       Verify your e-mail for the confirmation code.
                     </div>
       </div>
    </>
