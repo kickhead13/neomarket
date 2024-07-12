@@ -11,15 +11,29 @@ const Anunt = () => {
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState();
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const navigate=useNavigate();
 
+  function generateName()
+  {
+	  var id = "img" + Math.random().toString(16).slice(2);
+	  return id;
+  }
   async function tryNewProd() {
     console.log('damn');
         let host = window.location.hostname;
-        console.log(image);
-        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=L&id=" + 1 +"&seller=" + getCookie('user');
-        var compareTo;
+		var name=generateName();
+		const formData = new FormData();
+        formData.append("file", image);
+        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=" + (image==null ? "L" : name) + "&id=" + 1 +"&seller=" + getCookie('user');
+        let url2 = "https://" + host + ":8991?name=" + name;
+		var compareTo;
+		if(image != null){
+        await fetch(url2,{
+			method: "POST",
+			body: formData
+		}).catch(function(err){compareTo="fail";console.log(err);return false;});
+		}
         const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!resp){
             return false;
@@ -33,8 +47,7 @@ const Anunt = () => {
         return (compareTo === "ok");
   }
 
-  const newProd = () => {
-    console.log('damn');
+  const newProd = (e) => {
     let check = tryNewProd();
     check.then( val => {
       if(val===true){
@@ -73,7 +86,7 @@ const Anunt = () => {
         
         <div className='label-input-container'>
             
-            <input type="file" id="poze" value={image} onChange={(ev) => setImage(ev.target.value)} name="poze" />
+            <input type="file" id="poze" name="poze" onChange={(ev) => setImage(ev.target.files[0])} name="poze" />
         </div>
         
         <div className='label-input-container'>

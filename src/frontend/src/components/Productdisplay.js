@@ -3,6 +3,14 @@ import "./styles/Productdisplaystyles.css"
 import { Link, useSearchParams, useNavigate } from 'react-router-dom'
 import { ShopContext } from './Context/ShopContext';
 import missimg from "./Assert/missing_s.png"
+const images = require.context('../../prod_images', true);
+const imageList = images.keys().map(image => images(image));
+
+function getImage(name)
+{
+	const result = imageList.filter((img) => img.includes(name));
+	return result[0];
+}
 
 const Productdisplay = (props) => {
     const {product} = props;
@@ -10,7 +18,7 @@ const Productdisplay = (props) => {
   const [sp, setSp] = useSearchParams();
   const wuser = sp.get('user');
   const navigate=useNavigate();
-  var image=(product.img!="L" ? product.img : missimg);
+  var image=(product.img!="L" ? getImage(product.img) : missimg);
   return (
     <div className='productdisplay'>
 
