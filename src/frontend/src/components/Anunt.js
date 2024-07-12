@@ -25,12 +25,16 @@ const Anunt = () => {
 		var name=generateName();
 		const formData = new FormData();
         formData.append("file", image);
-        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=" + name + "&id=" + 1 +"&seller=" + getCookie('user');
-        var compareTo;
-        const resp = await fetch(url,{
+        let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=" + (image==null ? "L" : name) + "&id=" + 1 +"&seller=" + getCookie('user');
+        let url2 = "https://" + host + ":8991?name=" + name;
+		var compareTo;
+		if(image != null){
+        await fetch(url2,{
 			method: "POST",
 			body: formData
 		}).catch(function(err){compareTo="fail";console.log(err);return false;});
+		}
+        const resp = await fetch(url).catch(function(err){compareTo="fail";console.log(err);return false;});
         if(!resp){
             return false;
         }
