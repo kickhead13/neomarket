@@ -4,3 +4,4 @@ src/frontend/node_modules/
 src/backend/rust/target
 src/backend/rust/tls/*
 src/frontend/prod_images
+src/frontend/pfp

@@ -4,9 +4,11 @@ import Footer from "./Footer"
 import NavBar from "./Header.js"
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import getCookie from "./Cookies/Cookies.js"
+import missimg from "./Assert/null.jpg"
 
 const Account = () => {
   const [image, setImage] = useState(null);
+  const [upload, setUpload] = useState(null);
   const hiddenFileInput = useRef(null);
   const navigate = useNavigate();
 
@@ -99,10 +101,49 @@ const Account = () => {
   let [sp, setSp] = useSearchParams();
   let wuser = sp.get('user');
   let puser = sp.get('profile');
-
-
-  const images = require.context("./pfp", true);
-  let def = images("./null.jpg");
+  
+  async function tryNewPic() {
+    console.log('damn');
+        let host = window.location.hostname;
+		const formData = new FormData();
+        formData.append("file", upload);
+        let url = "https://" + host + ":8991/prof?name=" + puser;
+		var compareTo;
+		if(upload != null){
+        await fetch(url,{
+			method: "POST",
+			body: formData
+		}).catch(function(err){compareTo="fail";console.log(err);return false;});
+		
+		let url2 = "https://" + host + ":8443/api/change_user_pic?username=" + puser + "&pic=" + puser;
+		const resp = await fetch(url2).catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!resp){
+            return false;
+        }
+        const data= await resp.json().catch(function(err){compareTo="fail";console.log(err);return false;});
+        if(!data){
+            return false;
+        }
+        console.log(data);
+        compareTo = data['confirm'];
+        return (compareTo === "ok");
+		}
+        return false;
+  }
+  const newPic = (e) => {
+    let check = tryNewPic();
+    check.then( val => {
+      if(val===true){
+              console.log("W");
+      }
+      else{
+				console.log("L");
+      }
+    }).catch(err=>console.log(err));
+  }
+  
+  const images = require.context("../../pfp", true);
+  let def = missimg;
   getCookie('user');
   try {
     console.log(getCookie('user'));
@@ -134,7 +175,7 @@ const Account = () => {
       <p>{puser}</p>
       <button onClick={() => handleChatButtonClick(puser, wuser)}> Chat</button>
       {
-          getCookie('user') === puser ? <button style={{marginTop: "10px"}}>Change Image</button> : <p></p>
+          getCookie('user') === puser ? <span><button style={{marginTop: "10px"}} onClick={newPic}>Change Image</button><input type="file" id="poze" name="poze" onChange={(ev) => setUpload(ev.target.files[0])} name="poze" /></span>: <p></p>
       }
 
      </div>

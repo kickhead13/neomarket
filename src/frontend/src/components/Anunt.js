@@ -26,7 +26,7 @@ const Anunt = () => {
 		const formData = new FormData();
         formData.append("file", image);
         let url = "https://" + host + ":8443/api/new_prod?title=" + title + "&description=" + description + "&category=" + category + "&price=" + price + "&img=" + (image==null ? "L" : name) + "&id=" + 1 +"&seller=" + getCookie('user');
-        let url2 = "https://" + host + ":8991?name=" + name;
+        let url2 = "https://" + host + ":8991/prod?name=" + name;
 		var compareTo;
 		if(image != null){
         await fetch(url2,{
